@@ -1,0 +1,55 @@
+CREATE DATABASE proyectoutn;
+
+CREATE TABLE countries(
+id int UNSIGNED AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+CONSTRAINT pk_id_contries PRIMARY KEY (id)
+);
+
+CREATE TABLE states(
+id int UNSIGNED AUTO_INCREMENT,
+id_countrie int UNSIGNED ,    
+name VARCHAR(255) NOT NULL,
+CONSTRAINT pk_id_state PRIMARY KEY (id),
+CONSTRAINT fk_state_countries_id FOREIGN KEY (id_countrie) REFERENCES countries (id)       
+);
+
+CREATE TABLE cities(
+id int UNSIGNED AUTO_INCREMENT,
+id_state int UNSIGNED,
+name VARCHAR(255),
+prefilex VARCHAR(10),
+CONSTRAINT pk_id_cities PRIMARY KEY (id), 
+CONSTRAINT fk_cities_idstate FOREIGN KEY (id_state) REFERENCES states (id)
+);
+
+CREATE TABLE users(
+id int UNSIGNED AUTO_INCREMENT,
+id_city int UNSIGNED,    
+name VARCHAR(255),
+surname VARCHAR(255),
+dni VARCHAR(255),
+user VARCHAR(255),
+password VARCHAR(255),
+usertipe Varchar(255),
+CONSTRAINT pk_id_users PRIMARY KEY (id), 
+CONSTRAINT fk_id_city FOREIGN KEY (id_city) REFERENCES cities (id),
+CONSTRAINT unq_dni UNIQUE (dni,user)   
+);
+
+
+CREATE TABLE phone_lines(
+id int UNSIGNED AUTO_INCREMENT,
+id_user int UNSIGNED,
+phone_number VARCHAR(255),
+CONSTRAINT pk_phone_lines PRIMARY KEY (id),
+CONSTRAINT fk_phone_line_id_user FOREIGN KEY (id_user) REFERENCES users (id)    
+);
+
+CREATE TABLE types_phone(
+id int UNSIGNED AUTO_INCREMENT,
+id_phoneline int UNSIGNED,
+tipe VARCHAR(255),  
+CONSTRAINT pk_idtypephone PRIMARY KEY (id),
+CONSTRAINT fk_type_phone_id_phone FOREIGN KEY (id_phoneline) REFERENCES phone_lines (id)    
+);
