@@ -14,4 +14,6 @@ import javax.persistence.Table;
 public class Country {
 
     private Integer id;
+
+    private String name;
 }
