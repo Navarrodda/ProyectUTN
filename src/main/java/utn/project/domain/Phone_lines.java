@@ -1,6 +1,5 @@
 package utn.project.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,11 +11,13 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "type_phone")
-public class Type_phone {
+@Table(name = "phone_lines")
+public class Phone_lines {
 
-        private Integer id;
+    private Integer id;
 
-        private String type;
+    private String phone_number;
+
+    private User id_user;
 
 }
