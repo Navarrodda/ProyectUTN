@@ -9,8 +9,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
-@Table(name = "countries")
+@Entity(name = "countries")
 public class Country {
 
     private Integer id;
