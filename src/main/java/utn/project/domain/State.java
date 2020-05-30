@@ -11,8 +11,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
-@Table(name = "states")
+@Entity(name = "states")
 public class State {
 
     private Integer id;

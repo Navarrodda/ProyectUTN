@@ -10,8 +10,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
-@Table(name = "phone_lines")
+@Entity(name = "phone_lines")
 public class Phone_lines {
 
     private Integer id;
