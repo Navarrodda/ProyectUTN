@@ -4,24 +4,25 @@ package utn.project.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.Table;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity(name = "cities")
+@Table(name = "cities")
 public class City {
 
-    @Id
+    @Column(name = "id")
     private Integer id;
 
-    private String name;
-
-    private  String pre_fil_ex;
-
+    @Column(name = "id_state")
     private  State id_state;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "prefilex")
+    private  String pre_fil_ex;
 }
