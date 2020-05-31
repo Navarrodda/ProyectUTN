@@ -5,20 +5,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity(name = "phone_lines")
+@Table(name = "phone_lines")
 public class Phone_lines {
 
-    @Id
+    @Column(name = "id")
     private Integer id;
 
-    private String phone_number;
-
+    @Column(name = "id_user")
     private User id_user;
+
+    @Column(name = "phone_number")
+    private String phone_number;
 
 }
