@@ -1,27 +1,31 @@
 package utn.project.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@Entity(name = "phone_lines")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "phone_lines")
+@Builder
 public class Phone_lines {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "id_user")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name="id_user")
     private User id_user;
 
     @Column(name = "phone_number")
-    private String phone_number;
+    private String phoneNumber;
 
 }

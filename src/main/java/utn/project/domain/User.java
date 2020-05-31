@@ -1,30 +1,34 @@
 package utn.project.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "users")
+@Builder
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "id_city")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name="id_city")
     private City id_city;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "lastname")
+    @Column(name = "surname")
     private String surname;
 
     @Column(name = "dni")
@@ -36,8 +40,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "usertipe")
-    private String user_ti_pe;
+    @Column(name = "user_type")
+    private String userType;
 
 
 }

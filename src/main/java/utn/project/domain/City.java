@@ -1,28 +1,35 @@
 package utn.project.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+
+@Entity(name = "cities")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "cities")
+@Builder
 public class City {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "id_state")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name="id_state")
     private  State id_state;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "prefilex")
-    private  String pre_fil_ex;
+    @Column
+    private  String prefix;
 }
