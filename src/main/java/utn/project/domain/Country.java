@@ -1,18 +1,21 @@
 package utn.project.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@Entity(name = "countries")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "countries")
+@Builder
 public class Country {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
