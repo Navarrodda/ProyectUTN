@@ -3,6 +3,7 @@ package utn.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.project.domain.Country;
+import utn.project.domain.State;
 import utn.project.repository.CountryRepository;
 
 import java.util.List;
@@ -27,18 +28,6 @@ public class CountryService {
     public List<Country> getCountry(){
         return countryRepository.findAll();
     }
-
-    public List<Country> getAll(String name) {
-        if(isNull(name)) {
-            return countryRepository.findAll();
-        }
-        return countryRepository.findByName(name);
-    }
-
-   // public List<PersonaCant>getPersonaCant(){
-   //     return countryRepository.getPersonacant();
-    //}
-
 
 }
 

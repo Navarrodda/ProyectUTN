@@ -24,23 +24,9 @@ public class CountryController {
         return countryService.getCountry();
     }
 
-   // @GetMapping("/{personaId}")
-   // public Country getPersonaById(@PathVariable Integer personaId){
-    //    return new Country();
-   //}
-
     @PostMapping("/country")
     public void addCountry(@RequestBody  Country country){
         countryService.add(country);
     }
 
-    //@GetMapping("/personaname/")
-    //public List<Persona> getAll(@RequestParam(required = false)  String name){
-    //    return  personaService.getAll(name);
-   // }
-
-    //@GetMapping("/projection")
-    //public List<PersonaCant>getPersonaCant(){
-      //  return personaService.getPersonaCant();
-    //}
 }
