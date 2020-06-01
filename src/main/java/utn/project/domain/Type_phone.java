@@ -2,6 +2,7 @@ package utn.project.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Type_phone {
         @Column(name = "id")
         private Integer id;
 
+        @NotNull
         @Column(name = "type")
         private String type;
 

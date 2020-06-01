@@ -1,5 +1,6 @@
 package utn.project.domain;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Country {
     @Column(name = "id")
     private Integer id;
 
+    @NotNull
     @Column(name = "name")
     private String name;
 }

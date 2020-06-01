@@ -1,6 +1,7 @@
 package utn.project.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class Phone_lines {
     @JoinColumn(name="id_user")
     private User id_user;
 
+    @NotNull
     @Column(name = "phone_number")
     private String phoneNumber;
 
