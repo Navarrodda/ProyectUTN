@@ -27,7 +27,7 @@ public class Phone_lines {
     private User id_user;
 
     @NotNull
-    @Column(name = "phone_number")
+    @Column(name = "phone_number",nullable = false)
     private String phoneNumber;
 
 }
