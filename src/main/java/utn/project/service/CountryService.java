@@ -3,12 +3,8 @@ package utn.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.project.domain.Country;
-import utn.project.domain.State;
 import utn.project.repository.CountryRepository;
-
 import java.util.List;
-
-import static java.util.Objects.isNull;
 
 @Service
 public class CountryService {

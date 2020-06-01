@@ -2,6 +2,7 @@ package utn.project.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,9 +28,11 @@ public class City {
     @JoinColumn(name="id_state")
     private  State id_state;
 
+    @NotNull
     @Column(name = "name")
     private String name;
 
-    @Column
+    @NotNull
+    @Column(name = "prefix")
     private  String prefix;
 }
