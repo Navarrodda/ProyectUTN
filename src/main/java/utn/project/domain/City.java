@@ -29,10 +29,10 @@ public class City {
     private  State id_state;
 
     @NotNull
-    @Column(name = "name")
+    @Column(name = "name",nullable = false)
     private String name;
 
     @NotNull
-    @Column(name = "prefix")
+    @Column(name = "prefix",nullable = false)
     private  String prefix;
 }

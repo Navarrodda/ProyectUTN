@@ -25,30 +25,24 @@ public class User {
     @JsonBackReference
     @JoinColumn(name="id_city")
     private City id_city;
-    
-    @NotNull
-    @Column(name = "name")
+
+    @Column(name = "name",nullable = false)
     private String name;
 
 
-    @NotNull
-    @Column(name = "surname")
+    @Column(name = "surname",nullable = false)
     private String surname;
 
-    @NotNull
-    @Column(name = "dni")
+    @Column(name = "dni",nullable = false)
     private String dni;
 
-    @NotNull
-    @Column(name = "user")
+    @Column(name = "user",nullable = false,unique = true)
     private String user;
 
-    @NotNull
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String password;
 
-    @NotNull
-    @Column(name = "user_type")
+    @Column(name = "user_type",nullable = false)
     private String userType;
 
 

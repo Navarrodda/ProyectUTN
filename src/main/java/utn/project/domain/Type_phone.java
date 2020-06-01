@@ -23,11 +23,11 @@ public class Type_phone {
         private Integer id;
 
         @NotNull
-        @Column(name = "type")
+        @Column(name = "type",nullable = false)
         private String type;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JsonBackReference
-        @JoinColumn(name="id_phone_line")
+        @JoinColumn(name="id_phone_line",nullable = false)
         private Phone_lines phoneLines;
 }
