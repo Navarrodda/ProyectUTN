@@ -20,7 +20,7 @@ public class CountryController {
     }
 
     @GetMapping("/country")
-    public List<Country> getPersona(){
+    public List<Country> getCountry(){
         return countryService.getCountry();
     }
 

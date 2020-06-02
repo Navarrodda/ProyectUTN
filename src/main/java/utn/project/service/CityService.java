@@ -3,7 +3,7 @@ package utn.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.project.domain.City;
-import utn.project.projections.CityMoreStateProjections;
+import utn.project.projections.CityMoreState;
 import utn.project.repository.CityRepository;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class CityService {
         cityRepository.save(city);
     }
 
-    public List<CityMoreStateProjections>getCity(){
+    public List<CityMoreState>getCity(){
         return cityRepository.getCityMoreStateProjections();
     }
 }

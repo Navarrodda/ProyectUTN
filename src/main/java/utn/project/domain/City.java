@@ -28,11 +28,9 @@ public class City {
     @JoinColumn(name="id_state")
     private  State id_state;
 
-    @NotNull
     @Column(name = "name",nullable = false)
     private String name;
 
-    @NotNull
     @Column(name = "prefix",nullable = false)
     private  String prefix;
 }

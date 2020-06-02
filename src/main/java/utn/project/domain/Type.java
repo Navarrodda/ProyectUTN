@@ -15,19 +15,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Data
 @Builder
-public class Type_phone {
+public class Type {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id")
         private Integer id;
 
-        @NotNull
         @Column(name = "type",nullable = false)
         private String type;
-
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JsonBackReference
-        @JoinColumn(name="id_phone_line",nullable = false)
-        private Phone_lines phoneLines;
 }
