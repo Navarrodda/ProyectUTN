@@ -27,7 +27,6 @@ public class State {
     @JoinColumn(name="id_country")
     private Country id_country;
 
-    @NotNull
     @Column(name = "name")
     private  String name;
 

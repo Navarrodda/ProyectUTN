@@ -1,6 +1,6 @@
 package utn.project.projections;
 
-public interface CityMoreStateProjections {
+public interface CityMoreState {
 
     String getName();
 
@@ -8,4 +8,5 @@ public interface CityMoreStateProjections {
 
     String getState();
 
+    String getCountry();
 }

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.City;
-import utn.project.projections.CityMoreStateProjections;
+import utn.project.projections.CityMoreState;
 import utn.project.service.CityService;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class CityController {
     }
 
     @GetMapping("/city")
-    public List<CityMoreStateProjections>getCity(){
+    public List<CityMoreState>getCity(){
         return cityService.getCity();
     }
 
