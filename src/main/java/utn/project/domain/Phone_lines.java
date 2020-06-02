@@ -1,8 +1,7 @@
 package utn.project.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
-import com.sun.istack.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,8 +27,9 @@ public class Phone_lines {
     private User id_user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_type_line")
-    private Type type;
+    @JsonBackReference(value="type_phone")
+    @JoinColumn(name="type_phone")
+    private Type typePhone;
 
     @Column(name = "phone_number",nullable = false,unique = true)
     private String phoneNumber;
