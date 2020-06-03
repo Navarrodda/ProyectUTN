@@ -24,7 +24,7 @@ public class Phone_lines {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name="id_user")
-    private User id_user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="type_phone")
