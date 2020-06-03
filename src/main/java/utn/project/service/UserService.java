@@ -31,4 +31,5 @@ public class UserService {
         return userRepository.getUserFilterPone();
     }
 
+    public User getUserCity(Integer id){return userRepository.getUserCity(id);}
 }

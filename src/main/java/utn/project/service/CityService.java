@@ -24,4 +24,8 @@ public class CityService {
     public List<CityMoreState>getCity(){
         return cityRepository.getCityMoreStateProjections();
     }
+
+    public City getCityPrefix(Integer id){
+        return cityRepository.getCityPrefix(id);
+    }
 }
