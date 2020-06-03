@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.State;
+import utn.project.projections.MoreCity;
 import utn.project.service.StateService;
 
 import java.util.List;
@@ -34,5 +35,14 @@ public class StateController {
     public List<State> getCountryCant(@PathVariable Integer id){
         return stateService.getCountCountry(id);
     }
+
+
+    ////Prueva;
+    @GetMapping("/state/more/city")
+    public Object getMoreCity(){
+        List<MoreCity> cant =  stateService.getMoreCity();
+        return stateService.getMoreCity();
+    }
+
 
 }

@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query(value = "select * From users Where id = ?1", nativeQuery = true)
     User getUserCity(Integer id);
+
+
 }
