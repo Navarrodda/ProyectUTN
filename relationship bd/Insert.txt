@@ -1,1 +1,23 @@
 INSERT INTO type_phone (type) VALUES('Movil'), ('Home');
+
+INSERT INTO countries (name) VALUES ("Argentina");
+
+
+INSERT INTO states (name,id_country) VALUES ("Buenos Aires",1),("Catamarca",1),("Chaco",1),("Chubut",1),
+("Córdoba",1),("Corrientes",1),("Entre Ríos",1),("Formosa",1),("Jujuy",1),("La Pampa",1),
+("La Rioja",1),("Mendoza",1),("Misiones",1),("Neuquén",1),("Río Negro",1),("Salta",1),("San Juan",1),
+("San Luis",1),("Santa Cruz",1),("Santa Fe",1),("Santiago del Estero",1),
+("Tierra del Fuego, Antártida e Isla del Atlántico Sur",1),(" Tucumán",1);
+
+
+INSERT INTO cities (name,prefix,id_state) VALUES ("Buenos Aires","011",1),("La Plata","0221",1),
+("Mar del Plata","0223",1),("Bahía Blanca","0291",1);
+
+INSERT INTO cities (name,prefix,id_state) VALUES ("Catamarca","03833",2);
+
+INSERT INTO cities (name,prefix,id_state) VALUES("Resistencia","0362",3);
+
+INSERT INTO cities (name,prefix,id_state) VALUES("Rawson","0280",4);
+
+INSERT INTO cities (name,prefix,id_state) VALUES ("Córdoba","0351",5);
+
