@@ -19,4 +19,7 @@ public interface CityRepository extends JpaRepository<City,Integer> {
             "s on c.id_state = s.id INNER JOIN countries co on co.id = s.id_country" +
             " order by c.id", nativeQuery = true)
     List<CityMoreState>getCityMoreStateProjections();
+
+    @Query(value = "select * From cities c Where id = ?1", nativeQuery = true)
+    City getCityPrefix(Integer id);
 }

@@ -14,10 +14,12 @@ public interface UserRepository extends JpaRepository<User,Integer> {
             "c on c.id = u.id_city order by u.id ", nativeQuery = true)
     List<UserFilter>getUserFilter();
 
-    @Query(value = "Select u.user, p.phone_number as Phone, c.name as City " +
+    @Query(value = "Select u.user, p.phone_number as Phone, c.name as City, typ.type as type " +
             "From users u inner join cities c on c.id = u.id_city " +
-            "INNER JOIN  phone_lines p on p.id_user = u.id  " +
+            "inner join  phone_lines p on p.id_user = u.id inner join type_phone typ on typ.id = p.type_phone " +
             "order by u.id ", nativeQuery = true)
     List<UserPhoneTypeLin>getUserFilterPone();
 
+    @Query(value = "select * From users Where id = ?1", nativeQuery = true)
+    User getUserCity(Integer id);
 }
