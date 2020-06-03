@@ -26,7 +26,7 @@ public class City {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name="id_state")
-    private  State id_state;
+    private  State state;
 
     @Column(name = "name",nullable = false)
     private String name;
