@@ -10,14 +10,31 @@ INSERT INTO states (name,id_country) VALUES ("Buenos Aires",1),("Catamarca",1),(
 ("Tierra del Fuego, Antártida e Isla del Atlántico Sur",1),(" Tucumán",1);
 
 
-INSERT INTO cities (name,prefix,id_state) VALUES ("Buenos Aires","011",1),("La Plata","0221",1),
-("Mar del Plata","0223",1),("Bahía Blanca","0291",1);
-
-INSERT INTO cities (name,prefix,id_state) VALUES ("Catamarca","03833",2);
-
-INSERT INTO cities (name,prefix,id_state) VALUES("Resistencia","0362",3);
-
-INSERT INTO cities (name,prefix,id_state) VALUES("Rawson","0280",4);
-
-INSERT INTO cities (name,prefix,id_state) VALUES ("Córdoba","0351",5);
+INSERT INTO `cities` ("name", "prefix", "id_state") VALUES
+("Buenos Aires", "011",1),
+("La Plata", "0221",1),
+("Mar del Plata", "0223",1),
+("Bahía Blanca","0291",1),
+("Catamarca","03833",2),
+("Resistencia","0362",3),
+("Rawson","0280",4),
+("Córdoba","0351",5),
+("Corrientes","0379",6),
+("Paraná","0343",7),
+("Formosa","03717",8),
+("San Salvador de Jujuy","0388",9),
+("Santa Rosa","02954",10),
+("La Rioja","03822",11),
+("Mendoza","0261",12),
+("Posadas","0376",13),
+("Neuquén","0299",14),
+("Viedma","02920",15),
+("Salta","0387",16),
+("San Juan","0264",17),
+("San Luis","02652",18),
+("Río Gallegos","02966",19),
+("Santa Fé","0342",20),
+("Rosario","0341",21),
+("Santiago del Estero","0385",22),
+("Ushuaia","02901",23);
 
