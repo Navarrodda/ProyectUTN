@@ -31,7 +31,7 @@ public class Tariff {
     private City destinyCity;
 
     @Column(name = "price_for_minute")
-    private String minutePrice;
+    private Float minutePrice;
 
 
 }

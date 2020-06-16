@@ -27,6 +27,11 @@ public class CallController {
     }
 
     @PostMapping("/")
-    public void addCall(@RequestBody Call call){ callService.add(call);}
+    public void addCall(@RequestBody Call call){
+        call.
+
+
+
+        callService.add(call);}
 
 }

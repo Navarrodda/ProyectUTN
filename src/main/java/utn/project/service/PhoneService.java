@@ -4,6 +4,7 @@ package utn.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.project.domain.Phone_lines;
+import utn.project.projections.PhonesUsers;
 import utn.project.repository.PhoneRepository;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class PhoneService {
         phoneRepository.save(phone);
     }
 
-    public List<Phone_lines> getPhone(){
-        return phoneRepository.findAll();
+    public List<PhonesUsers> getPhone(){
+        return phoneRepository.getPhoneUsers();
     }
 
 }

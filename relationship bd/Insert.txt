@@ -10,7 +10,7 @@ INSERT INTO states (name,id_country) VALUES ("Buenos Aires",1),("Catamarca",1),(
 ("Tierra del Fuego, Antártida e Isla del Atlántico Sur",1),(" Tucumán",1);
 
 
-INSERT INTO `cities` ("name", "prefix", "id_state") VALUES
+INSERT INTO cities (name,prefix,id_state) VALUES
 ("Buenos Aires", "011",1),
 ("La Plata", "0221",1),
 ("Mar del Plata", "0223",1),
@@ -36,5 +36,9 @@ INSERT INTO `cities` ("name", "prefix", "id_state") VALUES
 ("Santa Fé","0342",20),
 ("Rosario","0341",21),
 ("Santiago del Estero","0385",22),
-("Ushuaia","02901",23);
+("Ushuaia","02901",23),
+("Miramar","2291",1);
+
+INSERT INTO tariff (price_for_minute,id_origin_city,id_destiny_city) 
+VALUES (10,3,3),(5,3,27),(5,27,3);
 

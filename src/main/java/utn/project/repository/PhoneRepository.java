@@ -1,8 +1,17 @@
 package utn.project.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import utn.project.domain.Phone_lines;
+import utn.project.projections.PhonesUsers;
+
+import java.util.List;
 
 
 public interface PhoneRepository extends JpaRepository<Phone_lines, Integer>{
+    @Query(value = "SELECT ph.id, u.name as nameUser, u.surname, ph.phone_number as Number " +
+            "FROM phone_lines ph " +
+            "INNER JOIN users u on u.id = " +
+            "ph.id_user GROUP BY ph.id;", nativeQuery = true)
+    List<PhonesUsers> getPhoneUsers();
 }
