@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import utn.project.domain.City;
 import utn.project.domain.Phone_lines;
 import utn.project.domain.User;
+import utn.project.projections.PhonesUsers;
 import utn.project.service.CityService;
 import utn.project.service.PhoneService;
 import utn.project.service.UserService;
-
 import java.util.List;
 
 @Controller
@@ -32,7 +32,7 @@ public class PhoneController {
 
 
     @GetMapping("/phone")
-    public List<Phone_lines> getPhone(){
+    public List<PhonesUsers> getPhone(){
         return phoneService.getPhone();
     }
 
