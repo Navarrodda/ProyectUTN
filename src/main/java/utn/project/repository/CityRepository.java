@@ -21,5 +21,8 @@ public interface CityRepository extends JpaRepository<City,Integer> {
     List<CityMoreState>getCityMoreStateProjections();
 
     @Query(value = "select * From cities c Where id = ?1", nativeQuery = true)
-    City getCityPrefix(Integer id);
+    City getCityPrefixById(Integer id);
+
+    @Query(value = "select * From cities c Where prefix = ?1", nativeQuery = true)
+    City getCityPrefixByPrefix(String prefix);
 }

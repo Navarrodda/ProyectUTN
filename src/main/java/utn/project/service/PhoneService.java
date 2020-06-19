@@ -27,4 +27,6 @@ public class PhoneService {
         return phoneRepository.getPhoneUsers();
     }
 
+    public  String phoneById(Integer id){return phoneRepository.phoneById(id);}
+
 }

@@ -32,4 +32,6 @@ public class CityController {
         cityService.add(city);
     }
 
+    public City getCityByPrefix(String prefix){return  cityService.getCityByPrefix(prefix);}
+
 }

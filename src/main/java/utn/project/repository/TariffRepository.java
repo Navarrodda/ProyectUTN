@@ -6,7 +6,7 @@ import utn.project.domain.Tariff;
 
 
 public interface TariffRepository extends JpaRepository<Tariff, Integer> {
-    @Query(value = "SELECT t.price_for_minute FROM tariff t " +
-            "WHERE t.id_destiny_city = id_destiny AND t.id_origin_city = id_origin ", nativeQuery = true)
-    Tariff getTariffForOriginDestiny(Integer id_destiny,Integer id_origin);
+    @Query(value = "SELECT * FROM tariff  WHERE" +
+            " tariff.id_destiny_city = ?1 AND tariff.id_origin_city = ?2", nativeQuery = true)
+    Tariff getTariffForOriginDestiny(Integer destiny, Integer origin);
 }
