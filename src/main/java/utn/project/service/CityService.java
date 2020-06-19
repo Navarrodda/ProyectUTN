@@ -26,6 +26,8 @@ public class CityService {
     }
 
     public City getCityPrefix(Integer id){
-        return cityRepository.getCityPrefix(id);
+        return cityRepository.getCityPrefixById(id);
     }
+
+    public City getCityByPrefix(String prefix){return cityRepository.getCityPrefixByPrefix(prefix);}
 }

@@ -25,7 +25,7 @@ public class TariffService {
         return tariffRepository.findAll();
     }
 
-    public List<Tariff> getTariffForPhonesDesAndOrig(){
-        return tariffRepository.findAll();
+    public Tariff getTariffForPhonesDesAndOrig(Integer idOrigin, Integer idDestiny){
+        return tariffRepository.getTariffForOriginDestiny(idOrigin,idDestiny);
     }
 }

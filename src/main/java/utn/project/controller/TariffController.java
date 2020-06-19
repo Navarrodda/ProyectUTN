@@ -30,4 +30,7 @@ public class TariffController {
         tariffService.add(tariff);
     }
 
+    public Tariff getTariffForPhonesDesAndOrig(Integer idOrigin, Integer idDestiny){
+        return tariffService.getTariffForPhonesDesAndOrig(idOrigin,idDestiny);};
+
 }
