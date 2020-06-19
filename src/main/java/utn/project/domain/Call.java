@@ -1,12 +1,15 @@
 package utn.project.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity(name = "calls")
 @NoArgsConstructor
@@ -35,9 +38,17 @@ public class Call {
     @JoinColumn(name="id_tariff")
     private Tariff tariff;
 
+    @NotNull
     @Column(name = "duration")
     private Float duration;
 
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)/**datetime**/
+    @JoinColumn(name="date",nullable = false)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    private Date date;
+
+    @NotNull
     @Column(name = "total_price")
     private Float totalPrice;
 

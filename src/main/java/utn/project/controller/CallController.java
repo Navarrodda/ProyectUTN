@@ -1,6 +1,7 @@
 package utn.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.standard.DateTimeContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.Call;
@@ -11,6 +12,14 @@ import utn.project.service.CityService;
 import utn.project.service.PhoneService;
 import utn.project.service.TariffService;
 
+import java.sql.PreparedStatement;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -52,6 +61,9 @@ public class CallController {
            //al tener la tarifa calculamos el total de esos minutos.
            Float totalPrice = tariff.getMinutePrice() * call.getDuration();
            call.setTotalPrice(totalPrice);
+           Timestamp date =  this.getDateNow();
+           call.setDate(date);
+           call.setTariff(tariff);
            callService.add(call);
        }
    }
@@ -64,6 +76,15 @@ public class CallController {
             return  prefix;
         }
         return  null;
+        }
+        
+        public Timestamp getDateNow(){
+            Date utilDate = new java.util.Date(); //fecha actual
+            long lnMilisegundos = utilDate.getTime();
+            Date sqlDate = new java.sql.Date(lnMilisegundos);
+            Time sqlTime = new java.sql.Time(lnMilisegundos);
+            Timestamp sqlTimestamp = new java.sql.Timestamp(lnMilisegundos);
+            return sqlTimestamp;
         }
 
 }
