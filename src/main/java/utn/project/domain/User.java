@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import utn.project.domain.enums.UserType;
 
 import javax.persistence.*;
 
@@ -35,14 +36,17 @@ public class User {
     @Column(name = "dni",nullable = false)
     private String dni;
 
-    @Column(name = "user",nullable = false,unique = true)
-    private String user;
+    @Column(name = "username",nullable = false,unique = true)
+    private String userName;
 
     @Column(name = "password",nullable = false)
     private String password;
 
-    @Column(name = "user_type",nullable = false)
-    private String userType;
+    @Column(name = "user_type", columnDefinition = "varchar(20) default 'CUSTOMER'")
+    @Enumerated(value = EnumType.STRING)
+    private UserType userType;
 
+    @Column(name = "active", columnDefinition = "bool default true")
+    private Boolean active;
 
 }

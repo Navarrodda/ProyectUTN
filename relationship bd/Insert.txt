@@ -42,3 +42,13 @@ INSERT INTO cities (name,prefix,id_state) VALUES
 INSERT INTO tariff (price_for_minute,id_origin_city,id_destiny_city) 
 VALUES (10,3,3),(5,3,27),(5,27,3);
 
+
+
+INSERT INTO users (dni,name,password,surname,username,user_type,id_city,active) VALUES
+('38831230','Valentina','123','Navarro','Navarrovlt','CUSTOMER',3,1),
+('38831211','David','123','Navarro','Navarrodda','ADMIN',3,1);
+
+INSERT INTO phone_lines (phone_number,type_phone,id_user) VALUES
+('0223-3121509',1,1),
+('0223-5993852',1,2);
+

@@ -1,11 +1,14 @@
 package utn.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.User;
 import utn.project.exceptions.UserAlreadyExistsException;
-import utn.project.projections.UserFilter;
+import utn.project.exceptions.UserException;
+import utn.project.exceptions.UserNotFoundException;
+import utn.project.exceptions.ValidationException;
 import utn.project.projections.UserPhoneTypeLin;
 import utn.project.service.UserService;
 
@@ -19,13 +22,33 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(final UserService userService) {
+    public UserController(final UserService userService){
         this.userService = userService;
     }
 
+    public User login(String username, String password) throws UserException, ValidationException {
+        if ((username != null) && (password != null)) {
+            return userService.login(username, password);
+        } else {
+            throw new ValidationException("Username or password cannot be empty");
+        }
+    }
+
     @GetMapping("/")
-    public List<UserFilter> getUser(){
-        return userService.getUser();
+    public List<User> getUsers(){
+        return this.userService.getUsers();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById (@PathVariable(value = "id", required = true)Integer idUser) throws UserNotFoundException {
+
+        return ResponseEntity.ok(this.userService.getUserById(idUser));
+    }
+
+    @GetMapping("/{id}/pass}")
+    public String getPassById(@PathVariable(value = "id", required = true)Integer idUser)
+    {
+        return this.userService.getPassById(idUser);
     }
 
     @PostMapping("/")
