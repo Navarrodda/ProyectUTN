@@ -8,6 +8,4 @@ public interface CallDate {
 
     Float getDuration();
 
-    Float getTotalPrice();
-
 }
