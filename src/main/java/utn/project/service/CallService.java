@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.project.domain.Call;
 import utn.project.projections.CallDate;
+import utn.project.projections.CallMore;
 import utn.project.projections.CallUser;
 import utn.project.repository.CallRepository;
 
@@ -33,5 +34,9 @@ public class CallService {
 
     public List<CallDate> getCallsBtwDatesByUser(Integer id,String startDate, String finalDate){
         return callRepository.getCallsBtwDatesByUser(id,startDate,finalDate);
+    }
+
+    public List<CallMore> getCallsMoreCity(Integer id){
+        return callRepository.getCallsMoreCity(id);
     }
 }
