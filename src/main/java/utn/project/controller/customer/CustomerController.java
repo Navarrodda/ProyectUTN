@@ -46,7 +46,7 @@ public class CustomerController {
 
     @GetMapping("/")
     public ResponseEntity<User> getInfo(@RequestHeader("Authorization") String sessionToken) throws UserException {
-        User currentUser = getCurrentUser(sessionToken);
+        User currentUser = sessionManager.getCurrentUser(sessionToken);
         return ResponseEntity.ok(currentUser);
     }
 
