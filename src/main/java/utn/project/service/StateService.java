@@ -4,7 +4,6 @@ package utn.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.project.domain.State;
-import utn.project.projections.MoreCity;
 import utn.project.repository.StateRepository;
 
 import java.util.List;
@@ -40,7 +39,6 @@ public class StateService {
         return stateRepository.findByCountCountry(id);
     }
 
-    public List<MoreCity> getMoreCity() {
-        return stateRepository.getMoreCity();
+    public List<State> getMoreCity() { return stateRepository.getMoreCity();
     }
 }

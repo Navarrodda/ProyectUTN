@@ -1,12 +1,14 @@
 package utn.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.State;
-import utn.project.projections.MoreCity;
 import utn.project.service.StateService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,12 +39,16 @@ public class StateController {
     }
 
 
-    ////Prueva;
+    ////Prueba;
     @GetMapping("/state/more/city")
-    public Object getMoreCity(){
-        List<MoreCity> cant =  stateService.getMoreCity();
-        return stateService.getMoreCity();
-    }
-
+    public ResponseEntity<List<State>> getMoreCity() {
+        List<State> cant = new ArrayList<>();
+        cant = this.stateService.getMoreCity();
+        if (!cant.isEmpty()) {
+                return ResponseEntity.ok(cant);
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            }
+        }
 
 }

@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import utn.project.domain.State;
-import utn.project.projections.MoreCity;
 
 import java.util.List;
 
@@ -18,8 +17,8 @@ public interface StateRepository  extends JpaRepository<State,Integer> {
     List<State> findByCountCountry(Integer id);
 
 
-    @Query(value = "SELECT s.name ,count(c.id) as Cant FROM states s " +
+    @Query(value = "SELECT * FROM states s " +
             "INNER JOIN cities c on c.id_state = " +
-            "s.id WHERE c.id > 50 ORDER by s.id ASC;", nativeQuery = true)
-    List<MoreCity> getMoreCity();
+            "s.id WHERE c.id > 50 ORDER by s.id ASC Limit 1;", nativeQuery = true)
+    List<State> getMoreCity();
 }
