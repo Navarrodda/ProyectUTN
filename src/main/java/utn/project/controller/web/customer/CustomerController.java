@@ -1,4 +1,4 @@
-package utn.project.controller.customer;
+package utn.project.controller.web.customer;
 
 
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import utn.project.session.SessionManager;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 public class CustomerController {
 
     private final UserService userService;
@@ -29,22 +29,15 @@ public class CustomerController {
 
     public User login(String username, String password) throws UserException, ValidationException, InvalidLoginException{
         if ((username != null) && (password != null)) {
-
-            User u = userService.login(username, password);
-
-            if(sessionManager.theUserIsLogged(u)){
+            User user = userService.login(username, password);
+            if(sessionManager.theUserIsLogged(user)){
                 throw new InvalidLoginException("This user is already logged");
-            }
-            else {
-                return u;
-            }
-        } else {
-            throw new ValidationException("Username and password must have a value");
-        }
+            } else { return user; }
+        } else { throw new ValidationException("Username and password must have a value"); }
     }
 
 
-    @GetMapping("/")
+    @GetMapping("/user")
     public ResponseEntity<User> getInfo(@RequestHeader("Authorization") String sessionToken) throws UserException {
         User currentUser = sessionManager.getCurrentUser(sessionToken);
         return ResponseEntity.ok(currentUser);

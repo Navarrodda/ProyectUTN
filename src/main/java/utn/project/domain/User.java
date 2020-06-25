@@ -29,7 +29,6 @@ public class User {
     @Column(name = "name",nullable = false)
     private String name;
 
-
     @Column(name = "surname",nullable = false)
     private String surname;
 
@@ -45,8 +44,5 @@ public class User {
     @Column(name = "user_type", columnDefinition = "varchar(20) default 'CUSTOMER'")
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
-
-    @Column(name = "active", columnDefinition = "bool default true")
-    private Boolean active;
 
 }

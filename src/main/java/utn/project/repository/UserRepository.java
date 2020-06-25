@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import utn.project.domain.User;
+import utn.project.domain.enums.LineStatus;
 import utn.project.projections.UserFilter;
 import utn.project.projections.UserPhoneTypeLin;
 import javax.transaction.Transactional;
@@ -23,6 +24,10 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query(value = "select * From users Where id = ?1", nativeQuery = true)
     User getUserCity(Integer id);
 
+    @Query(value = "SELECT u.* from users u " +
+            "INNER JOIN phone_lines ph on ph.id_user = u.id " +
+            "WHERE ph.status = \"ENABLED\"", nativeQuery = true)
+    List<User> getUsersLineActive();
 
     @Query(value = "select u.password from users u where u.id_user = ?1", nativeQuery = true)
     String findIdWithPassword(Integer idUser);
@@ -32,7 +37,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query(value = "select u.* from users u where u.username = ?1 and u.password = ?2", nativeQuery = true)
     User getByUsername(String username, String password);
-
 
     @Transactional
     @Modifying(clearAutomatically = true)

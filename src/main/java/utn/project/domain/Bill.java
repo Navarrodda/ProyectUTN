@@ -24,7 +24,7 @@ public class Bill {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="id_number_call")
     @JoinColumn(name="id_number_call")
-    private  Phone_lines numberCall;
+    private PhoneLines numberCall;
 
     @Column(name = "cant_call")
     private Integer cantCall;

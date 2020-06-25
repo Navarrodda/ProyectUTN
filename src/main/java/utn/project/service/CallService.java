@@ -7,7 +7,6 @@ import utn.project.projections.CallDate;
 import utn.project.projections.CallMore;
 import utn.project.projections.CallUser;
 import utn.project.repository.CallRepository;
-
 import java.util.List;
 
 @Service
