@@ -26,12 +26,12 @@ public class Call {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name="id_origin_phone")
-    private Phone_lines phoneLines;
+    private PhoneLines phoneLines;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="id_destiny_phone")
     @JoinColumn(name="id_destiny_phone")
-    private Phone_lines destinyPhone;
+    private PhoneLines destinyPhone;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="id_tariff")

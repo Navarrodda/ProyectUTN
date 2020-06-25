@@ -18,17 +18,16 @@ public class AdminSessionFilter extends OncePerRequestFilter {
     @Autowired
     private SessionManager sessionManager;
 
-    private static final String userTypeBackOffice = "ADMIN";
+    private static final String userTypeAdmin = "ADMIN";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServerException, IOException, ServletException {
-
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String sessionToken = request.getHeader("Authorization");
         Session session = sessionManager.getSession(sessionToken);
-
         if (null != session) {
-            if (session.getLoggedUser().getUserType().equals(UserType.ADMIN)) {
+            if (session.getLoggedUser().getUserType() == UserType.ADMIN) {
                 filterChain.doFilter(request, response);
             }
             else {

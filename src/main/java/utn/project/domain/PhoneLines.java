@@ -1,12 +1,11 @@
 package utn.project.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import utn.project.domain.enums.LineStatus;
 import javax.persistence.*;
 
 @Entity(name = "phone_lines")
@@ -14,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Data
 @Builder
-public class Phone_lines {
+public class PhoneLines {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +33,7 @@ public class Phone_lines {
     @Column(name = "phone_number",nullable = false,unique = true)
     private String phoneNumber;
 
-
-
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status" ,columnDefinition = "varchar(50) default 'ENABLED'")
+    private LineStatus status = LineStatus.ENABLED;
 }

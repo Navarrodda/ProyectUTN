@@ -1,4 +1,4 @@
-package utn.project.controller.customer;
+package utn.project.controller.web.customer;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

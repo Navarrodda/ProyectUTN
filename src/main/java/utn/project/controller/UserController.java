@@ -61,4 +61,9 @@ public class UserController {
         return userService.getUserPhone();
     }
 
+
+    public ResponseEntity<List<User>> getUsersLineActive(Integer id){
+        return this.userService.getUsersLineActive(id);
+    }
+
 }

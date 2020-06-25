@@ -3,7 +3,7 @@ package utn.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import utn.project.domain.Phone_lines;
+import utn.project.domain.PhoneLines;
 import utn.project.projections.PhonesUsers;
 import utn.project.repository.PhoneRepository;
 
@@ -19,7 +19,7 @@ public class PhoneService {
         this.phoneRepository = phoneRepository;
     }
 
-    public void add(final Phone_lines phone){
+    public void add(final PhoneLines phone){
         phoneRepository.save(phone);
     }
 

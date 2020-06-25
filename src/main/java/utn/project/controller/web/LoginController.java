@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import utn.project.controller.customer.CustomerController;
+import utn.project.controller.web.customer.CustomerController;
 import utn.project.domain.User;
 import utn.project.dto.LoginRequestDto;
 import utn.project.exceptions.InvalidLoginException;

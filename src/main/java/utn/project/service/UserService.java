@@ -1,6 +1,8 @@
 package utn.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.project.domain.City;
 import utn.project.domain.User;
@@ -14,6 +16,8 @@ import utn.project.projections.UserFilter;
 import utn.project.projections.UserPhoneTypeLin;
 import utn.project.repository.CityRepository;
 import utn.project.repository.UserRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,7 +67,6 @@ public class UserService {
         save.setUserName(user.getUsername());
         save.setPassword(user.getPassword());
         save.setDni(user.getDni());
-        save.setActive(user.getActive());
         return userRepository.save(save);
     }
 
@@ -75,15 +78,12 @@ public class UserService {
 
     public User update(Integer idUser, UserDto userDto) throws ValidationException {
         User newCostumer = this.userRepository.findById(idUser).get();
-
         if(!userDto.getUserType().equals(UserType.ADMIN.toString())){
             if(!userDto.getUserType().equals(UserType.CUSTOMER.toString())) {
                 return (User) Optional.ofNullable(null).orElseThrow(() -> new ValidationException("User type is not valid"));
             }
         }
-
         City city = cityRepository.getCityForId(userDto.getCity().getId());
-
         if(city == null){
             return (User) Optional.ofNullable(null).orElseThrow(() -> new ValidationException("City does not exists"));
         }
@@ -95,15 +95,10 @@ public class UserService {
         newCostumer.setUserName(userDto.getUsername());
         newCostumer.setPassword(userDto.getPassword());
         newCostumer.setDni(userDto.getDni());
-        newCostumer.setActive(userDto.getActive());
-
         if(userDto.getUserType().equals(UserType.ADMIN) ){
             newCostumer.setUserType(UserType.ADMIN);
         }
-        else{
-            newCostumer.setUserType(UserType.CUSTOMER);
-        }
-
+        else{ newCostumer.setUserType(UserType.CUSTOMER); }
         return this.userRepository.save(newCostumer);
     }
 
@@ -118,6 +113,20 @@ public class UserService {
     public List<UserPhoneTypeLin> getUserPhone(){
         return userRepository.getUserFilterPone();
     }
+
     public User getUserCity(Integer id){return userRepository.getUserCity(id);}
+
+    public ResponseEntity<List<User>> getUsersLineActive(Integer id){
+        List<User> users = this.userRepository.getUsersLineActive();
+        List<User> newUser = new ArrayList<User>();
+        for (User user: users) {
+            if(user.getId() != id){
+                newUser.add(user);
+            }
+        }
+        if(!newUser.isEmpty()){
+            return ResponseEntity.ok(newUser);
+        } else{ return ResponseEntity.status(HttpStatus.NO_CONTENT).build();}
+    }
 }
 
