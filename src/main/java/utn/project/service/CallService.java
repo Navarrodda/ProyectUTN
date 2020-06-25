@@ -1,12 +1,16 @@
 package utn.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.project.domain.Call;
 import utn.project.projections.CallDate;
 import utn.project.projections.CallMore;
 import utn.project.projections.CallUser;
 import utn.project.repository.CallRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,15 +31,33 @@ public class CallService {
         return callRepository.findAll();
     }
 
-    public List<CallUser> getCallUser(Integer id){
-        return callRepository.getCallUser(id);
+    public ResponseEntity<List<CallUser>> getCallUser(Integer id){
+        List<CallUser> calls = new ArrayList<CallUser>();
+        calls = this.callRepository.getCallUser(id);
+        if(!calls.isEmpty()){
+            return ResponseEntity.ok(calls);
+        }else{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
-    public List<CallDate> getCallsBtwDatesByUser(Integer id,String startDate, String finalDate){
-        return callRepository.getCallsBtwDatesByUser(id,startDate,finalDate);
+    public ResponseEntity<List<CallDate>> getCallsBtwDatesByUser(Integer id,String startDate, String finalDate){
+        List<CallDate> calls = new ArrayList<CallDate>();
+        calls = this.callRepository.getCallsBtwDatesByUser(id,startDate,finalDate);
+        if(!calls.isEmpty()){
+            return ResponseEntity.ok(calls);
+        }else{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
-    public List<CallMore> getCallsMoreCity(Integer id){
-        return callRepository.getCallsMoreCity(id);
+    public ResponseEntity<List<CallMore>> getCallsMoreCity(Integer id){
+        List<CallMore> moreCity = new ArrayList<>();
+        moreCity = callRepository.getCallsMoreCity(id);
+        if(!moreCity.isEmpty()){
+            return ResponseEntity.ok(moreCity);
+        }else{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 }

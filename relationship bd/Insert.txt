@@ -48,7 +48,19 @@ INSERT INTO users (dni,name,password,surname,username,user_type,id_city,active) 
 ('38831230','Valentina','123','Navarro','Navarrovlt','CUSTOMER',3,1),
 ('38831211','David','123','Navarro','Navarrodda','ADMIN',3,1);
 
-INSERT INTO phone_lines (phone_number,type_phone,id_user) VALUES
-('0223-3121509',1,1),
-('0223-5993852',1,2);
+INSERT INTO phone_lines (phone_number,type_phone,id_user,status) VALUES
+('0223-3121509',1,1,'ENABLED'),
+('0223-5993852',1,2,'ENABLED');
 
+
+//Pruebas
+
+INSERT INTO users (dni,name,password,surname,username,user_type,id_city,active) VALUES
+('38831230','Vale','123','Nava','Nava','CUSTOMER',3,1),
+('38831211','Dav','123','Nava','Navarr','CUSTOMER',3,1),
+('38831211','Dav','123','Nav','Nav','CUSTOMER',3,1);
+
+INSERT INTO phone_lines (phone_number,type_phone,id_user,status) VALUES
+('0223-3121333',1,3,'DISABLED'),
+('0223-5993444',1,4,'SUSPENDED'),
+('0223-5992222',1,5,'SUSPENDED');

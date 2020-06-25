@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
-    @Query(value = "Select u.name, u.surname, u.user, u.dni, c.name as City, u.user_type as Type_User From users u inner join cities " +
+    @Query(value = "Select u.id, u.name, u.surname, u.user, u.dni, c.name as City, u.user_type as Type_User From users u inner join cities " +
             "c on c.id = u.id_city order by u.id ", nativeQuery = true)
     List<UserFilter>getUserFilter();
 
@@ -29,10 +29,20 @@ public interface UserRepository extends JpaRepository<User,Integer> {
             "WHERE ph.status = \"ENABLED\"", nativeQuery = true)
     List<User> getUsersLineActive();
 
+    @Query(value = "SELECT u.* from users u " +
+            "INNER JOIN phone_lines ph on ph.id_user = u.id " +
+            "WHERE ph.status = \"DISABLED\"", nativeQuery = true)
+    List<User> getUsersLineDisabled();
+
+    @Query(value = "SELECT u.* from users u " +
+            "INNER JOIN phone_lines ph on ph.id_user = u.id " +
+            "WHERE ph.status = \"SUSPENDED\"", nativeQuery = true)
+    List<User> getUserSuspended();
+
     @Query(value = "select u.password from users u where u.id_user = ?1", nativeQuery = true)
     String findIdWithPassword(Integer idUser);
 
-    @Query(value = "select u.* from users u where u.id_user = ?1", nativeQuery = true)
+    @Query(value = "select u.* from users u where u.id = ?1", nativeQuery = true)
     User getById(Integer id);
 
     @Query(value = "select u.* from users u where u.username = ?1 and u.password = ?2", nativeQuery = true)

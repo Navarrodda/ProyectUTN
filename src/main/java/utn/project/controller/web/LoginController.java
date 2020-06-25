@@ -12,6 +12,7 @@ import utn.project.exceptions.InvalidLoginException;
 import utn.project.exceptions.UserException;
 import utn.project.exceptions.ValidationException;
 import utn.project.session.SessionManager;
+import utn.project.tools.HashPassword;
 
 @RestController
 @RequestMapping("/")
@@ -30,7 +31,9 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto) throws ValidationException, UserException, InvalidLoginException {
         ResponseEntity response;
-        User user = customerController.login(loginRequestDto.getUserName(), loginRequestDto.getPassword());
+        HashPassword hash= new HashPassword();
+        String newPassword = hash.getHashPassword(loginRequestDto.getPassword());
+        User user = customerController.login(loginRequestDto.getUserName(), newPassword,  sessionManager);
         String token = sessionManager.createSession(user);
         response = ResponseEntity.ok().headers(createHeaders(token)).build();
         return response;

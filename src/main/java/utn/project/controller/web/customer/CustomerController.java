@@ -27,15 +27,14 @@ public class CustomerController {
         this.sessionManager = sessionManager;
     }
 
-    public User login(String username, String password) throws UserException, ValidationException, InvalidLoginException{
+    public User login(String username, String password, SessionManager sessionManager) throws UserException, ValidationException, InvalidLoginException {
         if ((username != null) && (password != null)) {
             User user = userService.login(username, password);
             if(sessionManager.theUserIsLogged(user)){
-                throw new InvalidLoginException("This user is already logged");
+                return (User) Optional.ofNullable(null).orElseThrow(() -> new InvalidLoginException("This user is already logged"));
             } else { return user; }
-        } else { throw new ValidationException("Username and password must have a value"); }
+        } else { return (User) Optional.ofNullable(null).orElseThrow(() -> new ValidationException("Username and password must have a value")); }
     }
-
 
     @GetMapping("/user")
     public ResponseEntity<User> getInfo(@RequestHeader("Authorization") String sessionToken) throws UserException {
