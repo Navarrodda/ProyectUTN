@@ -5,10 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.User;
+import utn.project.dto.LoginRequestDto;
 import utn.project.exceptions.UserAlreadyExistsException;
 import utn.project.exceptions.UserException;
 import utn.project.exceptions.UserNotFoundException;
 import utn.project.exceptions.ValidationException;
+import utn.project.projections.UserFilter;
 import utn.project.projections.UserPhoneTypeLin;
 import utn.project.service.UserService;
 
@@ -64,6 +66,14 @@ public class UserController {
 
     public ResponseEntity<List<User>> getUsersLineActive(Integer id){
         return this.userService.getUsersLineActive(id);
+    }
+
+    public ResponseEntity<List<User>> getUsersDisabled(){ return this.userService.getUsersDisabled(); }
+
+    public ResponseEntity<List<User>> getUserSuspended(){ return this.userService.getUserSuspended(); }
+
+    public ResponseEntity<User> AdminUpdateAccount(Integer id, LoginRequestDto user) throws ValidationException{
+        return ResponseEntity.ok(this.userService.AdminUpdateAccount(id, user));
     }
 
 }

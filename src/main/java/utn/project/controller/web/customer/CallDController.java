@@ -34,25 +34,12 @@ public class CallDController {
     @GetMapping("/")
     public ResponseEntity<List<CallUser>> getCalls(@RequestHeader("Authorization") String sessionToken) throws UserException{
         User currentUser =  sessionManager.getCurrentUser(sessionToken);
-        List<CallUser> calls = new ArrayList<CallUser>();
-        calls = this.callService.getCallUser(currentUser.getId());
-        if(!calls.isEmpty()){
-            return ResponseEntity.ok(calls);
-        }else{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-    }
+        return this.callService.getCallUser(currentUser.getId()); }
 
     @GetMapping("/most-places/")
     public ResponseEntity<List<CallMore>> getMost(@RequestHeader("Authorization") String sessionToken) throws UserException {
         User currentUser = getCurrentUser(sessionToken);
-        List<CallMore> moreCity = new ArrayList<>();
-        moreCity = this.callService.getCallsMoreCity(currentUser.getId());
-        if(!moreCity.isEmpty()){
-            return ResponseEntity.ok(moreCity);
-        }else{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
+        return this.callService.getCallsMoreCity(currentUser.getId());
     }
 
     @GetMapping( "/between-dates/{firstDate}/{secondDate}")
@@ -61,13 +48,7 @@ public class CallDController {
                                                            @PathVariable(value = "secondDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String secondDate)
             throws UserException {
         User currentUser = sessionManager.getCurrentUser(sessionToken);
-        List<CallDate> calls = new ArrayList<CallDate>();
-        calls = this.callService.getCallsBtwDatesByUser(currentUser.getId(), firstDate, secondDate);
-        if(!calls.isEmpty()){
-            return ResponseEntity.ok(calls);
-        }else{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
+        return this.callService.getCallsBtwDatesByUser(currentUser.getId(), firstDate, secondDate);
     }
 
     private User getCurrentUser(String sessionToken) throws UserException {

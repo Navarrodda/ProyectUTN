@@ -14,5 +14,4 @@ public interface UserFilter {
 
    String getType_User();
 
-
 }
