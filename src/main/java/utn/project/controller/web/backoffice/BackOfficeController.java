@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.project.controller.*;
+import utn.project.domain.PhoneLines;
 import utn.project.domain.User;
 import utn.project.dto.LoginRequestDto;
 import utn.project.dto.NewUserDto;
 import utn.project.dto.UpdateUserDto;
-import utn.project.exceptions.UserAlreadyExistsException;
-import utn.project.exceptions.UserException;
-import utn.project.exceptions.ValidationException;
+import utn.project.exceptions.*;
 import utn.project.projections.UserFilter;
 import utn.project.session.SessionManager;
 
@@ -99,6 +98,12 @@ public class BackOfficeController {
     }
 
 
+    @GetMapping("/phone/{number}")
+    public ResponseEntity<PhoneLines> getPhoneLine(@RequestHeader("Authorization") String sessionToken,
+                                                   @PathVariable(value = "number", required = true) String number) throws UserException, PhoneNotExistsException, GoneLostException{
+        sessionManager.getCurrentUser(sessionToken);
+        return this.phoneController.getPhoneLineByNumber(number);
+    }
 
 
 

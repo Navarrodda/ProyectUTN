@@ -2,11 +2,14 @@ package utn.project.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.City;
 import utn.project.domain.PhoneLines;
 import utn.project.domain.User;
+import utn.project.exceptions.GoneLostException;
+import utn.project.exceptions.PhoneNotExistsException;
 import utn.project.projections.PhonesUsers;
 import utn.project.service.CityService;
 import utn.project.service.PhoneService;
@@ -44,6 +47,10 @@ public class PhoneController {
         City city = cityService.getCityPrefix(user.getCity().getId());
         phone.setPhoneNumber(city.getPrefix()+"-"+ferPhone);
         phoneService.add(phone);
+    }
+
+    public ResponseEntity<PhoneLines> getPhoneLineByNumber(String number) throws PhoneNotExistsException, GoneLostException{
+        return ResponseEntity.ok(this.phoneService.getByPhoneNumber(number));
     }
 
 }

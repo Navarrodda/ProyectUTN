@@ -11,6 +11,9 @@ import java.util.List;
 
 
 public interface PhoneRepository extends JpaRepository<PhoneLines, Integer>{
+    @Query(value = "select * from phone_lines;", nativeQuery = true)
+    List<PhoneLines> getByPhoneNumber();
+
     @Query(value = "SELECT ph.id, u.name as nameUser, u.surname, ph.phone_number as Number " +
             "FROM phone_lines ph " +
             "INNER JOIN users u on u.id = " +
