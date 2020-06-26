@@ -24,7 +24,7 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
             "INNER JOIN phone_lines phon2 on phon2.id = cal.id_destiny_phone " +
             "WHERE u.id = ?1 AND cal.date BETWEEN DATE_ADD(concat(?2, ' 23:59:59'), " +
             "INTERVAL -1 DAY) and concat( ?3, ' 23:59:59') ORDER BY cal.date asc;", nativeQuery = true)
-    List<CallDate> getCallsBtwDatesByUser(Integer id, String startDate, String finalDate);
+    List<CallDate> getCallsBtwDatesByUser(Integer id,String firstDate, String secondDate);
 
     @Query(value = "SELECT c.name as NameCity, s.name as NameState, phon.phone_number as Phone FROM " +
             "users u INNER JOIN phone_lines phon on phon.id_user = u.id " +
