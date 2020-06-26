@@ -45,4 +45,6 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
+    @Column(name = "active", columnDefinition = "bool default true")
+    private Boolean active;
 }
