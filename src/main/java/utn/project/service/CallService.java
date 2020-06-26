@@ -41,9 +41,9 @@ public class CallService {
         }
     }
 
-    public ResponseEntity<List<CallDate>> getCallsBtwDatesByUser(Integer id,String startDate, String finalDate){
+    public ResponseEntity<List<CallDate>> getCallsBtwDatesByUser(Integer id,String firstDate, String secondDate){
         List<CallDate> calls = new ArrayList<CallDate>();
-        calls = this.callRepository.getCallsBtwDatesByUser(id,startDate,finalDate);
+        calls = this.callRepository.getCallsBtwDatesByUser(id,firstDate,secondDate);
         if(!calls.isEmpty()){
             return ResponseEntity.ok(calls);
         }else{
