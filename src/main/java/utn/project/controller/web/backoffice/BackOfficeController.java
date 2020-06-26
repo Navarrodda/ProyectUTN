@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import utn.project.controller.*;
 import utn.project.domain.User;
 import utn.project.dto.LoginRequestDto;
+import utn.project.dto.NewUserDto;
+import utn.project.dto.UpdateUserDto;
+import utn.project.exceptions.UserAlreadyExistsException;
 import utn.project.exceptions.UserException;
 import utn.project.exceptions.ValidationException;
 import utn.project.projections.UserFilter;
@@ -65,5 +68,38 @@ public class BackOfficeController {
         User currentUser = sessionManager.getCurrentUser(sessionToken);
         return this.userController.AdminUpdateAccount(currentUser.getId(), user);
     }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUserById (@RequestHeader("Authorization") String sessionToken,
+                                             @PathVariable(value = "id", required = true)Integer id) throws UserException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.userController.getUserById(id);
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity addUser(@RequestHeader("Authorization") String sessionToken, @RequestBody NewUserDto userDto) throws UserException, UserAlreadyExistsException, ValidationException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.userController.add(userDto);
+    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateClient(@RequestHeader("Authorization") String sessionToken,
+                                             @PathVariable(value = "id", required = true) Integer id,
+                                             @RequestBody UpdateUserDto updateUserDto) throws ValidationException, UserException {
+        User currentUser = sessionManager.getCurrentUser(sessionToken);
+        return this.userController.update(id, updateUserDto,currentUser.getId());
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity deleteUser(@RequestHeader("Authorization") String sessionToken,
+                                     @PathVariable(value = "id", required = true) Integer id) throws UserException {
+        User currentUser = sessionManager.getCurrentUser(sessionToken);
+        this.userController.deleteUser(id,currentUser.getId());
+        return ResponseEntity.ok().build();
+    }
+
+
+
+
 
 }
