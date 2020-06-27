@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import utn.project.domain.enums.LineStatus;
+import utn.project.dto.PhoneDto;
+
 import javax.persistence.*;
 
 @Entity(name = "phone_lines")

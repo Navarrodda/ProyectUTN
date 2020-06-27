@@ -5,12 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.project.controller.*;
 import utn.project.domain.PhoneLines;
+import utn.project.domain.Tariff;
 import utn.project.domain.User;
 import utn.project.dto.LoginRequestDto;
 import utn.project.dto.NewUserDto;
+import utn.project.dto.PhoneDto;
 import utn.project.dto.UpdateUserDto;
 import utn.project.exceptions.*;
-import utn.project.projections.UserFilter;
 import utn.project.session.SessionManager;
 
 import java.util.List;
@@ -35,6 +36,8 @@ public class BackOfficeController {
         this.callController = callController;
         this.billController = billController;
     }
+
+    /**Users and Account*/
 
     @GetMapping("/")
     public ResponseEntity<User> getInfo(@RequestHeader("Authorization") String sessionToken) throws UserException {
@@ -97,6 +100,8 @@ public class BackOfficeController {
         return ResponseEntity.ok().build();
     }
 
+    /**Phone*/
+
 
     @GetMapping("/phone/{number}")
     public ResponseEntity<PhoneLines> getPhoneLine(@RequestHeader("Authorization") String sessionToken,
@@ -105,6 +110,39 @@ public class BackOfficeController {
         return this.phoneController.getPhoneLineByNumber(number);
     }
 
+    @GetMapping("/phone")
+    public ResponseEntity<List<PhoneLines>> getPhoneLines(@RequestHeader("Authorization") String sessionToken) throws UserException, PhoneNotExistsException, GoneLostException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.phoneController.getPhoneLines();
+    }
+    @PostMapping("/phone")
+    public ResponseEntity<PhoneLines> addPhoneLine(@RequestHeader("Authorization") String sessionToken,
+                                                  @RequestBody PhoneDto phoneLine) throws UserException, UserAlreadyExistsException, ValidationException, ValidationException {
+        sessionManager.sessionRemove(sessionToken);
+        return this.phoneController.add(phoneLine);
+    }
 
+    @PutMapping("/phone/{number}/status={status}")
+    public ResponseEntity<ResponseEntity<PhoneLines>> disablePhoneLine (@RequestHeader("Authorization") String sessionToken,
+                                                                        @PathVariable(value = "number", required = true) String number,
+                                                                        @PathVariable(value = "status", required = true) String status) throws ValidationException, UserException, PhoneNotExistsException, GoneLostException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.phoneController.changeStatus(number, status);
+    }
 
+    @DeleteMapping("/phone/{idPhone}")
+    public ResponseEntity deletePhoneLine (@RequestHeader("Authorization") String sessionToken,
+                                           @PathVariable(value = "idPhone", required = true) Integer idPhone) throws ValidationException, UserException, PhoneNotExistsException, GoneLostException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.phoneController.delete(idPhone);
+    }
+
+    /**Tariff*/
+
+   /* @GetMapping("/tariffs")
+    public ResponseEntity<List<Tariff>> getTariffs(@RequestHeader("Authorization") String sessionToken) throws UserException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.tariffController.getTariffs();
+    }*/
+    
 }
