@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.Call;
 import utn.project.domain.City;
-import utn.project.domain.Tariff;
+import utn.project.domain.Tariffs;
 import utn.project.service.CallService;
 import utn.project.service.CityService;
 import utn.project.service.PhoneService;
@@ -51,13 +51,13 @@ public class CallController {
            City origin = cityService.getCityByPrefix(prefixOrigin);
            City destiny = cityService.getCityByPrefix(prefixDestiny);
            //Paso siguiente al tener la ciudad origin y destino extraemos la tarifa.
-           Tariff tariff = tariffService.getTariffForPhonesDesAndOrig(origin.getId(), destiny.getId());
+           Tariffs tariffs = tariffService.getTariffForPhonesDesAndOrig(origin.getId(), destiny.getId());
            //al tener la tarifa calculamos el total de esos minutos.
-           Float totalPrice = tariff.getMinutePrice() * call.getDuration();
+           Float totalPrice = tariffs.getMinutePrice() * call.getDuration();
            call.setTotalPrice(totalPrice);
            Timestamp date =  this.getDateNow();
            call.setDate(date);
-           call.setTariff(tariff);
+           call.setTariffs(tariffs);
            callService.add(call);
        }
    }

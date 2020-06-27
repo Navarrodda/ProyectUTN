@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.project.controller.*;
 import utn.project.domain.PhoneLines;
-import utn.project.domain.Tariff;
+import utn.project.domain.Tariffs;
 import utn.project.domain.User;
 import utn.project.dto.LoginRequestDto;
 import utn.project.dto.NewUserDto;
@@ -139,10 +139,19 @@ public class BackOfficeController {
 
     /**Tariff*/
 
-   /* @GetMapping("/tariffs")
-    public ResponseEntity<List<Tariff>> getTariffs(@RequestHeader("Authorization") String sessionToken) throws UserException {
+    @GetMapping("/tariffs")
+    public ResponseEntity<List<Tariffs>> getTariffs(@RequestHeader("Authorization") String sessionToken) throws UserException {
         sessionManager.getCurrentUser(sessionToken);
         return this.tariffController.getTariffs();
-    }*/
-    
+    }
+
+    @GetMapping("/tariffs/destiny={idDestiny}/origin={idOrigin}")
+    public ResponseEntity<Tariffs> getTariff(@RequestHeader("Authorization") String sessionToken,
+                                             @PathVariable(value = "idDestiny", required = true) Integer idDestiny,
+                                             @PathVariable(value = "idOrigin", required = true) Integer idOrigin) throws UserException, TariffNotExistsException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.tariffController.getTariffByLocalityFromTo(idDestiny, idOrigin);
+    }
+
+
 }
