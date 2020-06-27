@@ -36,7 +36,7 @@ public class Call {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="id_tariff")
     @JoinColumn(name="id_tariff")
-    private Tariff tariff;
+    private Tariffs tariffs;
 
     @NotNull
     @Column(name = "duration")
