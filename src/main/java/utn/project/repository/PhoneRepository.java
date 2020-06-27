@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import utn.project.domain.PhoneLines;
 import utn.project.projections.PhonesUsers;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -13,6 +12,9 @@ import java.util.List;
 public interface PhoneRepository extends JpaRepository<PhoneLines, Integer>{
     @Query(value = "select * from phone_lines;", nativeQuery = true)
     List<PhoneLines> getByPhoneNumber();
+
+    @Query(value = "select p.* from phone_lines p where p.phone_number = ?1", nativeQuery = true)
+    PhoneLines getByGetPhoneNumber(String number);
 
     @Query(value = "SELECT ph.id, u.name as nameUser, u.surname, ph.phone_number as Number " +
             "FROM phone_lines ph " +
@@ -22,6 +24,9 @@ public interface PhoneRepository extends JpaRepository<PhoneLines, Integer>{
 
     @Query(value = "select ph.phone_number From phone_lines ph Where id = ?1", nativeQuery = true)
     String phoneById(Integer id);
+
+    @Query(value = "select * From phone_lines ph Where id = ?1", nativeQuery = true)
+    PhoneLines phoneByIdPhone(Integer id);
 
     @Transactional
     @Modifying(clearAutomatically = true)

@@ -5,16 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import utn.project.domain.City;
 import utn.project.domain.PhoneLines;
-import utn.project.domain.User;
+import utn.project.dto.PhoneDto;
 import utn.project.exceptions.GoneLostException;
 import utn.project.exceptions.PhoneNotExistsException;
-import utn.project.projections.PhonesUsers;
+import utn.project.exceptions.UserException;
+import utn.project.exceptions.ValidationException;
 import utn.project.service.CityService;
 import utn.project.service.PhoneService;
 import utn.project.service.UserService;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RestController
@@ -23,34 +24,31 @@ public class PhoneController {
 
 
     private final PhoneService phoneService;
-    private  final UserService userService;
-    private  final CityService cityService;
 
     @Autowired
     public PhoneController(final PhoneService phoneService, UserService userService, CityService cityService) {
         this.phoneService = phoneService;
-        this.userService = userService;
-        this.cityService = cityService;
-    }
-
-
-    @GetMapping("/phone")
-    public List<PhonesUsers> getPhone(){
-        return phoneService.getPhone();
-    }
-
-    @PostMapping("/phone")
-    public void addPhone(@RequestBody PhoneLines phone){
-        String ferPhone = phone.getPhoneNumber();
-        ferPhone = ferPhone.substring(2,9);
-        User user = userService.getUserCity(phone.getUser().getId());
-        City city = cityService.getCityPrefix(user.getCity().getId());
-        phone.setPhoneNumber(city.getPrefix()+"-"+ferPhone);
-        phoneService.add(phone);
     }
 
     public ResponseEntity<PhoneLines> getPhoneLineByNumber(String number) throws PhoneNotExistsException, GoneLostException{
         return ResponseEntity.ok(this.phoneService.getByPhoneNumber(number));
     }
+
+    public ResponseEntity<List<PhoneLines>> getPhoneLines(){
+        return ResponseEntity.ok(this.phoneService.getPhoneLines());
+    }
+
+    public ResponseEntity<PhoneLines> add(@RequestBody PhoneDto phoneLine) throws ValidationException, UserException{
+        return ResponseEntity.ok(this.phoneService.add(phoneLine));
+    }
+
+    public ResponseEntity<ResponseEntity<PhoneLines>> changeStatus(String phoneNumber, String status) throws PhoneNotExistsException, GoneLostException, ValidationException {
+        return  ResponseEntity.ok(this.phoneService.update(phoneNumber, status));
+    }
+
+    public ResponseEntity delete(Integer idPhone) throws PhoneNotExistsException, GoneLostException, ValidationException, UserException {
+        return ResponseEntity.ok(this.phoneService.delete(idPhone));
+    }
+
 
 }

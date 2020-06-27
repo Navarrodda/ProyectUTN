@@ -180,9 +180,7 @@ public class UserService {
         if(id != currentId) {
             PhoneLines phoneLines =  phoneRepository.phoneByIdUser(id);
             if(phoneLines != null)
-            {
-                phoneRepository.deleteUser(id);
-            }
+            { phoneRepository.deleteUser(id); }
             userRepository.delete(id);
         }
     }
