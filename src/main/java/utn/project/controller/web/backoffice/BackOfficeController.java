@@ -1,9 +1,11 @@
 package utn.project.controller.web.backoffice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.project.controller.*;
+import utn.project.domain.Call;
 import utn.project.domain.PhoneLines;
 import utn.project.domain.Tariffs;
 import utn.project.domain.User;
@@ -12,6 +14,7 @@ import utn.project.dto.NewUserDto;
 import utn.project.dto.PhoneDto;
 import utn.project.dto.UpdateUserDto;
 import utn.project.exceptions.*;
+import utn.project.projections.CallUser;
 import utn.project.session.SessionManager;
 
 import java.util.List;
@@ -100,8 +103,7 @@ public class BackOfficeController {
         return ResponseEntity.ok().build();
     }
 
-    /**Phone*/
-
+    /**Consulta Phone*/
 
     @GetMapping("/phone/{number}")
     public ResponseEntity<PhoneLines> getPhoneLine(@RequestHeader("Authorization") String sessionToken,
@@ -137,7 +139,7 @@ public class BackOfficeController {
         return this.phoneController.delete(idPhone);
     }
 
-    /**Tariff*/
+    /**Consulta Tariff*/
 
     @GetMapping("/tariffs")
     public ResponseEntity<List<Tariffs>> getTariffs(@RequestHeader("Authorization") String sessionToken) throws UserException {
@@ -152,6 +154,36 @@ public class BackOfficeController {
         sessionManager.getCurrentUser(sessionToken);
         return this.tariffController.getTariffByLocalityFromTo(idDestiny, idOrigin);
     }
+
+    /**Consulta llamadas*/
+
+    @GetMapping("/calls/user/{id}")
+    public ResponseEntity<List<CallUser>> getCallsByUser(@RequestHeader("Authorization") String sessionToken,
+                                                         @PathVariable(value = "id", required = true) Integer id) throws UserException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.callController.getCallsUser(id);
+    }
+
+    @GetMapping( "/calls/between-dates/{firstDate}/{secondDate}")
+    public ResponseEntity<List<Call>> getCallsBtwDates(@RequestHeader("Authorization") String sessionToken,
+                                                       @PathVariable(value = "firstDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String firstDate,
+                                                       @PathVariable(value = "secondDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String secondDate)
+            throws UserException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.callController.getCallsBetweenDates(firstDate, secondDate);
+    }
+
+    @GetMapping( "/calls/user/{id}/between-dates/{firstDate}/{secondDate}")
+    public ResponseEntity<List<Call>> getCallsBetweenDatesByUser(@RequestHeader("Authorization") String sessionToken,
+                                                             @PathVariable(value = "firstDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String firstDate,
+                                                             @PathVariable(value = "secondDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String secondDate,
+                                                             @PathVariable(value = "id", required = true) Integer id) throws UserException {
+        sessionManager.getCurrentUser(sessionToken);
+        return this.callController.getCallsBetweenDatesByUser(firstDate, secondDate, id);
+    }
+
+    /**Consulta Facturas*/
+
 
 
 }

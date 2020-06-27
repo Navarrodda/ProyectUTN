@@ -10,6 +10,19 @@ import utn.project.projections.CallUser;
 import java.util.List;
 
 public interface CallRepository extends JpaRepository<Call,Integer> {
+    @Query(value = "select concat(c.date) as date, c.* from calls c " +
+            "where c.date BETWEEN concat(?1, ' 00:00:00') and DATE_ADD(concat( ?2, ' 00:00:00'), interval 1 DAY) " +
+            "order by c.id_tariff asc", nativeQuery = true)
+    List<Call> getCallsBetweenDates(String firstDate, String secondDate);
+
+    @Query(value = "select concat(c.date) as date, c.* " +
+            "from calls c " +
+            "inner join phone_lines pl on c.id_origin_phone = pl.id " +
+            "where pl.id_user = ?1 and " +
+            "c.date BETWEEN concat(?2, ' 00:00:00') and DATE_ADD(concat( ?3, ' 00:00:00'), interval 1 DAY) " +
+            "order by c.date asc", nativeQuery = true)
+    List<Call> getCallsBetweenDatesByUser(Integer idUser, String firstDate, String secondDate);
+
     @Query(value = "SELECT cal.date as Date, phon2.phone_number as callD, cal.duration as Duration, cal.total_price as TotalPrice  " +
             "FROM users u INNER JOIN phone_lines phon on phon.id_user = u.id " +
             "INNER JOIN calls cal on cal.id_origin_phone = phon.id " +

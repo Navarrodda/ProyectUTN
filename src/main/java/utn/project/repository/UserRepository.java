@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User,Integer> {
     User save(User user) throws DataIntegrityViolationException;
 
-    @Query(value = "SELECT u.* from users u where u.id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * from users u where u.id = ?1", nativeQuery = true)
     User getById(Integer id);
 
     @Query(value = "SELECT u.password from users u where u.id_user = ?1", nativeQuery = true)
