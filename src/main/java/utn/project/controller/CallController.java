@@ -1,11 +1,14 @@
 package utn.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.Call;
 import utn.project.domain.City;
 import utn.project.domain.Tariffs;
+import utn.project.exceptions.UserException;
+import utn.project.projections.CallUser;
 import utn.project.service.CallService;
 import utn.project.service.CityService;
 import utn.project.service.PhoneService;
@@ -80,5 +83,17 @@ public class CallController {
             Timestamp sqlTimestamp = new java.sql.Timestamp(lnMilisegundos);
             return sqlTimestamp;
         }
+
+    public ResponseEntity<List<CallUser>> getCallsUser(Integer idCustomer) throws UserException {
+        return this.callService.getCallsUser(idCustomer);
+    }
+
+    public ResponseEntity<List<Call>> getCallsBetweenDates(String firstDate, String secondDate) throws UserException {
+        return this.callService.getCallsBetweenDates(firstDate, secondDate);
+    }
+
+    public ResponseEntity<List<Call>> getCallsBetweenDatesByUser(String firstDate, String secondDate, Integer idUser) throws UserException {
+        return this.callService.getCallsBetweenDatesByUser(firstDate, secondDate, idUser);
+    }
 
 }
