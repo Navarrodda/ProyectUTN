@@ -39,7 +39,7 @@ INSERT INTO cities (name,prefix,id_state) VALUES
 ("Ushuaia","02901",23),
 ("Miramar","2291",1);
 
-INSERT INTO tariffs (price_for_minute,id_origin_city,id_destiny_city)
+INSERT INTO tariff (price_for_minute,id_origin_city,id_destiny_city)
 VALUES (10,3,3),(5,3,27),(5,27,3);
 
 

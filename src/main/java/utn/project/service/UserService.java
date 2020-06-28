@@ -55,7 +55,7 @@ public class UserService {
 
     public User login(String username, String password) throws UserException {
         User user = userRepository.getByUsername(username, password);
-        return Optional.ofNullable(user).orElseThrow(() -> new UserException("User does not exist"));
+        return Optional.ofNullable(user).orElseThrow(() -> new UserException("User not exists"));
     }
 
     public User createUser(UserDto user) throws UserAlreadyExistsException, ValidationException {
@@ -174,6 +174,14 @@ public class UserService {
             return this.userRepository.save(previous);
         }
         return (User) Optional.ofNullable(null).orElseThrow(() -> new ValidationException("The entered id is your id"));
+    }
+
+    public User update(Integer idClient, LoginRequestDto user) throws ValidationException {
+        User save = this.userRepository.getById(idClient);
+        HashPassword hash = new HashPassword();
+        save.setUserName(user.getUserName());
+        save.setPassword(hash.getHashPassword(user.getPassword()));
+        return this.userRepository.save(save);
     }
 
     public void deleteUser(Integer id,Integer currentId){

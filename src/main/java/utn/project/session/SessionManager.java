@@ -41,13 +41,11 @@ public class SessionManager {
     }
 
     public boolean theUserIsLogged(User u){
-
         for (Session session : sessionMap.values()){
             if(session.getLoggedUser().getId() == u.getId()){
                 return true;
             }
         }
-
         return false;
     }
 

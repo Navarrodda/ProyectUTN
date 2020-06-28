@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import utn.project.domain.Tariffs;
+import utn.project.domain.Tariff;
 import utn.project.exceptions.TariffNotExistsException;
 import utn.project.repository.TariffRepository;
 
@@ -22,20 +22,20 @@ public class TariffService {
         this.tariffRepository = tariffRepository;
     }
 
-    public void add(final Tariffs tariffs){
-        tariffRepository.save(tariffs);
+    public void add(final Tariff tariff){
+        tariffRepository.save(tariff);
     }
 
-    public List<Tariffs> getTariff(){
+    public List<Tariff> getTariff(){
         return tariffRepository.findAll();
     }
 
-    public Tariffs getTariffForPhonesDesAndOrig(Integer idOrigin, Integer idDestiny){
+    public Tariff getTariffForPhonesDesAndOrig(Integer idOrigin, Integer idDestiny){
         return tariffRepository.getTariffForOriginDestiny(idOrigin,idDestiny);
     }
 
-    public ResponseEntity<List<Tariffs>> getTariffs(){
-        List<Tariffs> tariffs = new ArrayList<Tariffs>();
+    public ResponseEntity<List<Tariff>> getTariffs(){
+        List<Tariff> tariffs = new ArrayList<Tariff>();
         tariffs = tariffRepository.findAll();
         if(!tariffs.isEmpty()){
             return ResponseEntity.ok(tariffs);
@@ -44,9 +44,9 @@ public class TariffService {
         }
     }
 
-    public Tariffs getTariffByDestinyOriginFromTo(Integer idDestiny, Integer idOrigin) throws TariffNotExistsException {
-        Tariffs tariffs = new Tariffs();
-        tariffs = tariffRepository.getTariffByDestinyOriginFromTo(idDestiny, idOrigin);
-        return  Optional.ofNullable(tariffs).orElseThrow(() -> new TariffNotExistsException("Tariff do not exists"));
+    public Tariff getTariffByDestinyOriginFromTo(Integer idDestiny, Integer idOrigin) throws TariffNotExistsException {
+        Tariff tariff = new Tariff();
+        tariff = tariffRepository.getTariffByDestinyOriginFromTo(idDestiny, idOrigin);
+        return  Optional.ofNullable(tariff).orElseThrow(() -> new TariffNotExistsException("Tariff do not exists"));
     }
 }

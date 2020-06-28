@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import utn.project.controller.web.customer.CustomerController;
+import utn.project.controller.UserController;
 import utn.project.domain.User;
 import utn.project.dto.LoginRequestDto;
 import utn.project.exceptions.InvalidLoginException;
@@ -18,13 +18,12 @@ import utn.project.tools.HashPassword;
 @RequestMapping("/")
 public class LoginController {
 
-
-    CustomerController customerController;
+    UserController userController;
     SessionManager sessionManager;
 
     @Autowired
-    public LoginController(CustomerController customerController, SessionManager sessionManager) {
-        this.customerController = customerController;
+    public LoginController(UserController userController, SessionManager sessionManager) {
+        this.userController = userController;
         this.sessionManager = sessionManager;
     }
 
@@ -33,7 +32,7 @@ public class LoginController {
         ResponseEntity response;
         HashPassword hash= new HashPassword();
         String newPassword = hash.getHashPassword(loginRequestDto.getPassword());
-        User user = customerController.login(loginRequestDto.getUserName(), newPassword,  sessionManager);
+        User user = userController.login(loginRequestDto.getUserName(), newPassword,  sessionManager);
         String token = sessionManager.createSession(user);
         response = ResponseEntity.ok().headers(createHeaders(token)).build();
         return response;

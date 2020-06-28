@@ -11,11 +11,8 @@ import utn.project.exceptions.GoneLostException;
 import utn.project.exceptions.PhoneNotExistsException;
 import utn.project.exceptions.UserException;
 import utn.project.exceptions.ValidationException;
-import utn.project.service.CityService;
 import utn.project.service.PhoneService;
-import utn.project.service.UserService;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RestController
@@ -26,7 +23,7 @@ public class PhoneController {
     private final PhoneService phoneService;
 
     @Autowired
-    public PhoneController(final PhoneService phoneService, UserService userService, CityService cityService) {
+    public PhoneController(final PhoneService phoneService) {
         this.phoneService = phoneService;
     }
 

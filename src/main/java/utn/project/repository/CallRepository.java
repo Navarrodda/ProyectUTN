@@ -45,6 +45,6 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
             "INNER JOIN phone_lines phond on phond.id = cal.id_destiny_phone " +
             "INNER JOIN users user2 on user2.id = phond.id_user " +
             "INNER JOIN cities c on c.id = user2.id_city " +
-            "INNER JOIN states s on s.id = c.id_state WHERE u.id = ?1", nativeQuery = true)
+            "INNER JOIN states s on s.id = c.id_state WHERE u.id = ?1 LIMIT 1", nativeQuery = true)
     List<CallMore> getCallsMoreCity(Integer id);
 }
