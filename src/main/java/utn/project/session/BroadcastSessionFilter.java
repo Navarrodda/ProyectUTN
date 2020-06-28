@@ -21,9 +21,8 @@ public class BroadcastSessionFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
         String sessionToken = request.getHeader("Authorization");
-        if (sessionToken.equals("12345") && request.getRequestURI().equals("/broadcast/") ){
+        if (sessionToken.equals("123") && request.getRequestURI().equals("/broadcast/") ){
             filterChain.doFilter(request, response);
         }
         else {
