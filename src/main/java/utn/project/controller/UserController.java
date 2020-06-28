@@ -9,16 +9,15 @@ import utn.project.domain.User;
 import utn.project.dto.LoginRequestDto;
 import utn.project.dto.NewUserDto;
 import utn.project.dto.UpdateUserDto;
-import utn.project.exceptions.UserAlreadyExistsException;
-import utn.project.exceptions.UserException;
-import utn.project.exceptions.UserNotFoundException;
-import utn.project.exceptions.ValidationException;
+import utn.project.exceptions.*;
 import utn.project.projections.UserFilter;
 import utn.project.projections.UserPhoneTypeLin;
 import utn.project.service.UserService;
+import utn.project.session.SessionManager;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RestController
@@ -32,29 +31,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    public User login(String username, String password) throws UserException, ValidationException {
+    public User login(String username, String password, SessionManager sessionManager) throws UserException, ValidationException, InvalidLoginException {
         if ((username != null) && (password != null)) {
-            return userService.login(username, password);
-        } else {
-            throw new ValidationException("Username or password cannot be empty");
-        }
-    }
-
-    @GetMapping("/")
-    public List<User> getUsers(){
-        return this.userService.getUsers();
-    }
-
-
-    @GetMapping("/{id}/pass}")
-    public String getPassById(@PathVariable(value = "id", required = true)Integer idUser)
-    {
-        return this.userService.getPassById(idUser);
-    }
-
-    @GetMapping("/phone")
-    public List<UserPhoneTypeLin> getUserPhone(){
-        return userService.getUserPhone();
+            User user = userService.login(username, password);
+            if(sessionManager.theUserIsLogged(user)){
+                return (User) Optional.ofNullable(null).orElseThrow(() -> new InvalidLoginException("This user is already logged"));
+            } else { return user; }
+        } else { return (User) Optional.ofNullable(null).orElseThrow(() -> new ValidationException("Username and password must have a value")); }
     }
 
 
@@ -80,6 +63,10 @@ public class UserController {
 
     public ResponseEntity<User> update(Integer id, UpdateUserDto user,Integer currentId) throws ValidationException{
         return ResponseEntity.ok(this.userService.update(id, user, currentId));
+    }
+
+    public ResponseEntity<User> update(Integer idClient, LoginRequestDto user) throws ValidationException{
+        return ResponseEntity.ok(this.userService.update(idClient, user));
     }
 
     public void deleteUser(Integer id, Integer currentId) throws UserException {

@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Data
 @Builder
-public class Tariffs {
+public class Tariff {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

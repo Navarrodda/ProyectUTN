@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import utn.project.session.AdminSessionFilter;
+import utn.project.session.BroadcastSessionFilter;
 import utn.project.session.SessionFilter;
 
 @org.springframework.context.annotation.Configuration
@@ -17,9 +18,9 @@ public class Configuration {
     @Autowired
     SessionFilter sessionFilter;
     @Autowired
-    AdminSessionFilter backofficeSessionFilter;
-   /* @Autowired
-    AntennaSessionFilter backOfficeSessionFilter;*/
+    AdminSessionFilter adminSessionFilterSessionFilter;
+    @Autowired
+    BroadcastSessionFilter broadcastSessionFilter;
 
     @Bean
     public FilterRegistrationBean  clientFilter() {
@@ -30,18 +31,18 @@ public class Configuration {
     }
 
     @Bean
-    public FilterRegistrationBean backofficeFilter() {
+    public FilterRegistrationBean backOfficeFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(backofficeSessionFilter);
-        registration.addUrlPatterns("/admin/*");
+        registration.setFilter(adminSessionFilterSessionFilter);
+        registration.addUrlPatterns("/office/*");
         return registration;
     }
 
-   /* @Bean
+    @Bean
     public FilterRegistrationBean antennaFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(antennaSessionFilter);
-        registration.addUrlPatterns("/antenna/*");
+        registration.setFilter(broadcastSessionFilter);
+        registration.addUrlPatterns("/broadcast/*");
         return registration;
-    }*/
+    }
 }
