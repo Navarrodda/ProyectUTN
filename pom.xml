@@ -15,21 +15,11 @@
 	<description>programming project plus database</description>
 
 	<properties>
-		<java.version>1.8</java.version>
-		<kotlin.version>1.3.72</kotlin.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.9.2</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -66,11 +56,6 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>5.2.2.RELEASE</version>
@@ -101,6 +86,11 @@
 			<artifactId>spring-expression</artifactId>
 			<version>5.2.4.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -109,19 +99,20 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.2</version>
 				<configuration>
 					<excludes>
-						<exclude>**/config/**/*</exclude>
-						<exclude>**/controllers/web/**</exclude>
-						<exclude>**/domain/**/*</exclude>
+						<exclude>**/config/**</exclude>
+						<exclude>**/controller/web/**</exclude>
+						<exclude>**/domain/**</exclude>
 						<exclude>**/dto/**</exclude>
 						<exclude>**/exceptions/**</exclude>
 						<exclude>**/projections/**</exclude>
+						<exclude>**/repository/**</exclude>
+						<exclude>**/service/**</exclude>
 						<exclude>**/session/**</exclude>
 						<exclude>**/tools/**</exclude>
 					</excludes>
@@ -153,7 +144,7 @@
 										<limit>
 											<counter>INSTRUCTION</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.7</minimum>
+											<minimum>0.1</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -163,7 +154,7 @@
 										<limit>
 											<counter>BRANCH</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.7</minimum>
+											<minimum>0.1</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -171,6 +162,10 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -188,4 +183,3 @@
 	</build>
 
 </project>
-

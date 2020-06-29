@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import utn.project.domain.*;
@@ -17,11 +16,8 @@ import utn.project.exceptions.ValidationException;
 import utn.project.repository.CityRepository;
 import utn.project.repository.PhoneRepository;
 import utn.project.repository.UserRepository;
-
 import java.util.ArrayList;
-
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.Optional.*;
 import static org.mockito.Mockito.doNothing;

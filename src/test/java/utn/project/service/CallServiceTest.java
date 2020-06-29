@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import utn.project.domain.*;
 import utn.project.domain.enums.UserType;
 import utn.project.dto.BroadcastCall;
-import utn.project.dto.UpdateUserDto;
 import utn.project.exceptions.UserException;
 import utn.project.exceptions.ValidationException;
 import utn.project.projections.CallDate;
@@ -18,7 +17,6 @@ import utn.project.projections.CallMore;
 import utn.project.projections.CallUser;
 import utn.project.repository.CallRepository;
 import utn.project.repository.UserRepository;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
