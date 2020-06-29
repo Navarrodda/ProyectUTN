@@ -11,7 +11,7 @@ import utn.project.domain.Type;
 import utn.project.domain.User;
 import utn.project.domain.enums.LineStatus;
 import utn.project.dto.PhoneDto;
-import utn.project.exceptions.GoneLostException;
+import utn.project.exceptions.LostException;
 import utn.project.exceptions.PhoneNotExistsException;
 import utn.project.exceptions.UserException;
 import utn.project.exceptions.ValidationException;
@@ -34,7 +34,7 @@ public class PhoneService {
     private final CityRepository cityRepository;
 
     @Autowired
-    public PhoneService(final PhoneRepository phoneRepository, TypeRepository typeRepository, UserRepository userRepository, CityRepository cityRepository) {
+    public PhoneService(PhoneRepository phoneRepository, TypeRepository typeRepository, UserRepository userRepository, CityRepository cityRepository) {
         this.phoneRepository = phoneRepository;
         this.typeRepository = typeRepository;
         this.userRepository = userRepository;
@@ -49,7 +49,7 @@ public class PhoneService {
         return phoneRepository.phoneById(id);
     }
 
-    public PhoneLines getByPhoneNumber(String number) throws PhoneNotExistsException, GoneLostException {
+    public PhoneLines getByPhoneNumber(String number) throws PhoneNotExistsException, LostException {
         String[] newNumber = number.split("-");
         List<PhoneLines> phoneLines = phoneRepository.getByPhoneNumber();
         PhoneLines phone = new PhoneLines();
@@ -65,7 +65,7 @@ public class PhoneService {
             return (PhoneLines) Optional.ofNullable(null)
                     .orElseThrow(() -> new PhoneNotExistsException("Phone Line do not exists"));
         } else if (phone.getStatus().toString().equals("DISABLED")) {
-            return (PhoneLines) Optional.ofNullable(null).orElseThrow(() -> new GoneLostException("Phone Line has been deleted"));
+            return (PhoneLines) Optional.ofNullable(null).orElseThrow(() -> new LostException("Phone Line has been deleted"));
         }
         return phone;
     }
@@ -143,7 +143,7 @@ public class PhoneService {
     }
 
 
-    public Object delete(Integer idPhone) throws PhoneNotExistsException, GoneLostException, ValidationException, UserException {
+    public Object delete(Integer idPhone) throws PhoneNotExistsException, LostException, ValidationException, UserException {
         PhoneLines phoneLine = new PhoneLines();
         phoneLine = this.phoneRepository.phoneByIdPhone(idPhone);
         if(phoneLine.getStatus() != LineStatus.DISABLED) {
