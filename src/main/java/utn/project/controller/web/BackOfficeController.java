@@ -109,13 +109,13 @@ public class BackOfficeController {
 
     @GetMapping("/phone/{number}")
     public ResponseEntity<PhoneLines> getPhoneLine(@RequestHeader("Authorization") String sessionToken,
-                                                   @PathVariable(value = "number", required = true) String number) throws UserException, PhoneNotExistsException, GoneLostException{
+                                                   @PathVariable(value = "number", required = true) String number) throws UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
         return this.phoneController.getPhoneLineByNumber(number);
     }
 
     @GetMapping("/phone")
-    public ResponseEntity<List<PhoneLines>> getPhoneLines(@RequestHeader("Authorization") String sessionToken) throws UserException, PhoneNotExistsException, GoneLostException {
+    public ResponseEntity<List<PhoneLines>> getPhoneLines(@RequestHeader("Authorization") String sessionToken) throws UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
         return this.phoneController.getPhoneLines();
     }
@@ -129,14 +129,14 @@ public class BackOfficeController {
     @PutMapping("/phone/{number}/status={status}")
     public ResponseEntity<ResponseEntity<PhoneLines>> disablePhoneLine (@RequestHeader("Authorization") String sessionToken,
                                                                         @PathVariable(value = "number", required = true) String number,
-                                                                        @PathVariable(value = "status", required = true) String status) throws ValidationException, UserException, PhoneNotExistsException, GoneLostException {
+                                                                        @PathVariable(value = "status", required = true) String status) throws ValidationException, UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
         return this.phoneController.changeStatus(number, status);
     }
 
     @DeleteMapping("/phone/{idPhone}")
     public ResponseEntity deletePhoneLine (@RequestHeader("Authorization") String sessionToken,
-                                           @PathVariable(value = "idPhone", required = true) Integer idPhone) throws ValidationException, UserException, PhoneNotExistsException, GoneLostException {
+                                           @PathVariable(value = "idPhone", required = true) Integer idPhone) throws ValidationException, UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
         return this.phoneController.delete(idPhone);
     }

@@ -39,6 +39,7 @@ public class UserService {
         this.phoneRepository = phoneRepository;
     }
 
+
     public List<User> getUsers(){
         return this.userRepository.findAll();
     }
@@ -93,6 +94,21 @@ public class UserService {
             if(user.getId() != id){ newUser.add(user); }
         }if(!newUser.isEmpty()){ return ResponseEntity.ok(newUser);
         } else{ return ResponseEntity.status(HttpStatus.NO_CONTENT).build();}
+    }
+
+    public ResponseEntity<List<User>> getUsersActive(){
+        List<User> users = this.userRepository.findAll();
+        List<User> reply = new ArrayList<User>();
+        for (User u: users) {
+            if(u.getActive() == true){
+                reply.add(u);
+            }
+        }
+        if(!reply.isEmpty()){
+            return ResponseEntity.ok(reply);
+        }else{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     public ResponseEntity<List<User>> getUsersDisabled(){

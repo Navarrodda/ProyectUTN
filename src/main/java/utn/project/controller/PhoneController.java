@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utn.project.domain.PhoneLines;
 import utn.project.dto.PhoneDto;
-import utn.project.exceptions.GoneLostException;
+import utn.project.exceptions.LostException;
 import utn.project.exceptions.PhoneNotExistsException;
 import utn.project.exceptions.UserException;
 import utn.project.exceptions.ValidationException;
@@ -27,7 +27,7 @@ public class PhoneController {
         this.phoneService = phoneService;
     }
 
-    public ResponseEntity<PhoneLines> getPhoneLineByNumber(String number) throws PhoneNotExistsException, GoneLostException{
+    public ResponseEntity<PhoneLines> getPhoneLineByNumber(String number) throws PhoneNotExistsException, LostException {
         return ResponseEntity.ok(this.phoneService.getByPhoneNumber(number));
     }
 
@@ -39,11 +39,11 @@ public class PhoneController {
         return ResponseEntity.ok(this.phoneService.add(phoneLine));
     }
 
-    public ResponseEntity<ResponseEntity<PhoneLines>> changeStatus(String phoneNumber, String status) throws PhoneNotExistsException, GoneLostException, ValidationException {
+    public ResponseEntity<ResponseEntity<PhoneLines>> changeStatus(String phoneNumber, String status) throws PhoneNotExistsException, LostException, ValidationException {
         return  ResponseEntity.ok(this.phoneService.update(phoneNumber, status));
     }
 
-    public ResponseEntity delete(Integer idPhone) throws PhoneNotExistsException, GoneLostException, ValidationException, UserException {
+    public ResponseEntity delete(Integer idPhone) throws PhoneNotExistsException, LostException, ValidationException, UserException {
         return ResponseEntity.ok(this.phoneService.delete(idPhone));
     }
 
