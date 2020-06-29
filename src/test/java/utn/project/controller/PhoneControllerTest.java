@@ -27,7 +27,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class PhoneControllerTest {
 
     @Mock
-    PhoneService phoneServiceMockito;
+    PhoneService phoneServiceMock;
 
 
     @InjectMocks
@@ -65,9 +65,9 @@ public class PhoneControllerTest {
     public void addOkTest() throws ValidationException, UserException {
         PhoneDto dto = createPhoneDto();
         PhoneLines phoneLine = createPhoneLine();
-        when(this.phoneServiceMockito.add(dto)).thenReturn(phoneLine);
+        when(this.phoneServiceMock.add(dto)).thenReturn(phoneLine);
         ResponseEntity<PhoneLines> response = this.phoneController.add(dto);
-        Assert.assertEquals(HttpStatus.CREATED,response);
+        Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class PhoneControllerTest {
         PhoneLines phoneLine = createPhoneLine();
         PhoneLines phone = new PhoneLines();
         phoneLine.setStatus(LineStatus.ENABLED);
-        when(this.phoneServiceMockito.getByPhoneNumber(phoneNumber)).thenReturn(phoneLine);
+        when(this.phoneServiceMock.getByPhoneNumber(phoneNumber)).thenReturn(phoneLine);
         ResponseEntity<ResponseEntity<PhoneLines>> responseEntity = this.phoneController.changeStatus(phoneLine.getPhoneNumber(),"ENABLE");
         Assert.assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
     }
@@ -87,8 +87,8 @@ public class PhoneControllerTest {
         String phoneNumber = "22333232";
         String status = "enable";
         PhoneLines phoneLine = createPhoneLine();
-        phoneLine.setStatus(LineStatus.ENABLED);
-        when(this.phoneServiceMockito.getByPhoneNumber(phoneNumber)).thenReturn(phoneLine);
+        phoneLine.setStatus(LineStatus.DISABLED);
+        when(this.phoneServiceMock.getByPhoneNumber(phoneNumber)).thenReturn(phoneLine);
         ResponseEntity<ResponseEntity<PhoneLines>> responseEntity = this.phoneController.changeStatus(phoneNumber,status);
         Assert.assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
     }
@@ -98,65 +98,29 @@ public class PhoneControllerTest {
         String phoneNumber = "22333232";
         String status = "suspend";
         PhoneLines phoneLine = createPhoneLine();
-        phoneLine.setStatus(LineStatus.ENABLED);
-        when(this.phoneServiceMockito.getByPhoneNumber(phoneNumber)).thenReturn(phoneLine);
+        phoneLine.setStatus(LineStatus.SUSPENDED);
+        when(this.phoneServiceMock.getByPhoneNumber(phoneNumber)).thenReturn(phoneLine);
         ResponseEntity<ResponseEntity<PhoneLines>> responseEntity = this.phoneController.changeStatus(phoneNumber,status);
         Assert.assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
     }
 
-    @Test(expected = PhoneNotExistsException.class )
-    public void changeStatusNullTest() throws PhoneNotExistsException, LostException, ValidationException {
-        String phoneNumber = "223-3322232";
-        String status = "suspend";
-        PhoneLines phoneLine = createPhoneLine();
-        phoneLine.setStatus(LineStatus.ENABLED);
-        when(this.phoneServiceMockito.getByPhoneNumber(phoneNumber)).thenReturn(null);
-        this.phoneController.changeStatus(phoneNumber,status);
-
-    }
-
-    @Test(expected = ValidationException.class )
-    public void changeStatusNotValidTest() throws LostException, PhoneNotExistsException, ValidationException {
-        String phoneNumber = "22333232";
-        String status = "cualca";
-        PhoneLines phoneLine = createPhoneLine();
-        phoneLine.setStatus(LineStatus.ENABLED);
-        when(this.phoneServiceMockito.getByPhoneNumber(phoneNumber)).thenReturn(phoneLine);
-        this.phoneController.changeStatus(phoneNumber,status);
-
-    }
 
     @Test
     public void deleteOkTest() throws LostException, PhoneNotExistsException, ValidationException, UserException {
         Integer id = 1;
         PhoneLines phoneline = createPhoneLine();
-        when(this.phoneServiceMockito.phoneById(id)).thenReturn(String.valueOf(phoneline));
-        when(this.phoneServiceMockito.delete(id)).thenReturn(id);
+        when(this.phoneServiceMock.phoneById(id)).thenReturn(String.valueOf(phoneline));
+        when(this.phoneServiceMock.delete(id)).thenReturn(id);
         ResponseEntity response = this.phoneController.delete(id);
         Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
-    @Test(expected = PhoneNotExistsException.class)
-    public void deleteNotExistTest() throws LostException, PhoneNotExistsException, ValidationException, UserException {
-        Integer id = 1;
-        PhoneLines phoneline = createPhoneLine();
-        when(this.phoneServiceMockito.phoneById(phoneline.getId())).thenThrow(new PhoneNotExistsException("No existe"));
-        this.phoneController.delete(id);
-    }
-
-    @Test(expected = LostException.class)
-    public void deleteGoneTest() throws LostException, PhoneNotExistsException, ValidationException, UserException {
-        Integer id = 1;
-        PhoneLines phoneline = createPhoneLine();
-        when(this.phoneServiceMockito.phoneById(id)).thenThrow(new LostException("Ya fue eliminado"));
-        this.phoneController.delete(id);
-    }
 
     @Test
     public void getPhoneLineByNumberTest() throws LostException, PhoneNotExistsException {
         String number = "123355552";
         PhoneLines phoneLine = createPhoneLine();
-        when(this.phoneServiceMockito.getByPhoneNumber(number)).thenReturn(phoneLine);
+        when(this.phoneServiceMock.getByPhoneNumber(number)).thenReturn(phoneLine);
         ResponseEntity<PhoneLines> response = this.phoneController.getPhoneLineByNumber(number);
         Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
@@ -166,7 +130,7 @@ public class PhoneControllerTest {
         List<PhoneLines> list = new ArrayList<>();
         PhoneLines phoneLine = createPhoneLine();
         list.add(phoneLine);
-        when(this.phoneServiceMockito.getPhoneLines()).thenReturn(list);
+        when(this.phoneServiceMock.getPhoneLines()).thenReturn(list);
         ResponseEntity<List<PhoneLines>> response = this.phoneController.getPhoneLines();
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
     }

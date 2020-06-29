@@ -108,14 +108,14 @@ public class BackOfficeController {
     /**Consulta Phone*/
 
     @GetMapping("/phone/{number}")
-    public ResponseEntity<PhoneLines> getPhoneLine(@RequestHeader("Authorization") String sessionToken,
+    public ResponseEntity<PhoneLines> getPhone(@RequestHeader("Authorization") String sessionToken,
                                                    @PathVariable(value = "number", required = true) String number) throws UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
         return this.phoneController.getPhoneLineByNumber(number);
     }
 
     @GetMapping("/phone")
-    public ResponseEntity<List<PhoneLines>> getPhoneLines(@RequestHeader("Authorization") String sessionToken) throws UserException, PhoneNotExistsException, LostException {
+    public ResponseEntity<List<PhoneLines>> getPhones(@RequestHeader("Authorization") String sessionToken) throws UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
         return this.phoneController.getPhoneLines();
     }
@@ -127,7 +127,7 @@ public class BackOfficeController {
     }
 
     @PutMapping("/phone/{number}/status={status}")
-    public ResponseEntity<ResponseEntity<PhoneLines>> disablePhoneLine (@RequestHeader("Authorization") String sessionToken,
+    public ResponseEntity<ResponseEntity<PhoneLines>> statusPhoneLine (@RequestHeader("Authorization") String sessionToken,
                                                                         @PathVariable(value = "number", required = true) String number,
                                                                         @PathVariable(value = "status", required = true) String status) throws ValidationException, UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
@@ -144,13 +144,13 @@ public class BackOfficeController {
     /**Consulta Tariff*/
 
     @GetMapping("/tariffs")
-    public ResponseEntity<List<Tariff>> getTariffs(@RequestHeader("Authorization") String sessionToken) throws UserException {
+    public ResponseEntity<List<Tariff>> getTariff(@RequestHeader("Authorization") String sessionToken) throws UserException {
         sessionManager.getCurrentUser(sessionToken);
         return this.tariffController.getTariffs();
     }
 
     @GetMapping("/tariffs/destiny={idDestiny}/origin={idOrigin}")
-    public ResponseEntity<Tariff> getTariff(@RequestHeader("Authorization") String sessionToken,
+    public ResponseEntity<Tariff> getTariffs(@RequestHeader("Authorization") String sessionToken,
                                             @PathVariable(value = "idDestiny", required = true) Integer idDestiny,
                                             @PathVariable(value = "idOrigin", required = true) Integer idOrigin) throws UserException, TariffNotExistsException {
         sessionManager.getCurrentUser(sessionToken);
@@ -167,7 +167,7 @@ public class BackOfficeController {
     }
 
     @GetMapping( "/calls/between-dates/{firstDate}/{secondDate}")
-    public ResponseEntity<List<Call>> getCallsBtwDates(@RequestHeader("Authorization") String sessionToken,
+    public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                        @PathVariable(value = "firstDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String firstDate,
                                                        @PathVariable(value = "secondDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String secondDate)
             throws UserException {
@@ -194,7 +194,7 @@ public class BackOfficeController {
     }
 
     @GetMapping("/bills/user/{idUser}/between-dates/{firstDate}/{secondDate}")
-    public ResponseEntity<List<Bill>> getBillsBtwDatesByUser(@RequestHeader("Authorization") String sessionToken,
+    public ResponseEntity<List<Bill>> getBillsBetweenDatesByUser(@RequestHeader("Authorization") String sessionToken,
                                                              @PathVariable(value = "firstDate", required = true) String firstDate,
                                                              @PathVariable(value = "secondDate", required = true) String secondDate,
                                                              @PathVariable(value = "idUser", required = true) Integer idUser) throws UserException {

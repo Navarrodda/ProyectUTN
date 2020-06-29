@@ -6,11 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import utn.project.domain.City;
-import utn.project.domain.State;
 import utn.project.domain.User;
 import utn.project.domain.enums.UserType;
 import utn.project.dto.LoginRequestDto;
@@ -19,8 +18,6 @@ import utn.project.dto.UpdateUserDto;
 import utn.project.exceptions.*;
 import utn.project.service.UserService;
 import utn.project.session.SessionManager;
-
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +100,7 @@ public class UserControllerTest {
         assertEquals(loggedUser.getUserName(), returnedUser.getUserName());
         verify(userServiceMockito, times(1)).login("user", "pwd");
     }
+
 
     @Test(expected = ValidationException.class)
     public void testLoginInvalidData() throws UserNonsexistException, ValidationException, InvalidLoginException, UserException {
@@ -188,7 +186,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void addOkTest() throws ValidationException{
+    public void addOkTest() throws ValidationException, DataIntegrityViolationException {
         User newUser = new User();
         NewUserDto user = createNewUserDto("lla","loco","dda","123","CUSTOMER",true);
         when(this.userServiceMockito.add(user)).thenReturn(newUser);
