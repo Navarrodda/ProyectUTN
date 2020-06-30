@@ -9,6 +9,8 @@ import utn.project.domain.PhoneLines;
 import utn.project.domain.Type;
 import utn.project.domain.User;
 import utn.project.domain.enums.LineStatus;
+import utn.project.exceptions.LostException;
+import utn.project.exceptions.PhoneNotExistsException;
 import utn.project.repository.CityRepository;
 import utn.project.repository.PhoneRepository;
 import utn.project.repository.TypeRepository;
@@ -60,6 +62,26 @@ public class PhoneServiceTest {
         when(this.phoneRepository.findAll()).thenReturn(phoneLineList);
         List<PhoneLines> phoneLineList1 = this.phoneService.getPhoneLines();
         Assert.assertEquals(phoneLineList.size() , phoneLineList1.size());
+    }
+
+    @Test()
+    public void getByPhoneNumberFails1() throws LostException, PhoneNotExistsException {
+        City city = new City();
+        User user = new User();
+        Type type = new Type();
+        PhoneLines phoneLine = PhoneLines.builder()
+                .id(1)
+                .phoneNumber("223")
+                .typePhone(type)
+                .user(user)
+                .status(LineStatus.ENABLED)
+                .build();
+        this.phoneService.getByPhoneNumber("223");
+    }
+
+    @Test()
+    public void getByPhoneNumberFails2() throws PhoneNotExistsException, LostException {
+        this.phoneService.getByPhoneNumber("222-2222222222");
     }
 
 }

@@ -10,7 +10,6 @@ public class HashPassword {
                 sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
             }return sb.toString();
         } catch (java.security.NoSuchAlgorithmException e) {
-            System.out.println(e.getMessage());
         }return null;
     }
 }

@@ -99,20 +99,20 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.2</version>
+				<version>0.8.5</version>
 				<configuration>
 					<excludes>
+						<exclude>**/web/**</exclude>
 						<exclude>**/config/**</exclude>
-						<exclude>**/controller/web/**</exclude>
 						<exclude>**/domain/**</exclude>
 						<exclude>**/dto/**</exclude>
 						<exclude>**/exceptions/**</exclude>
 						<exclude>**/projections/**</exclude>
 						<exclude>**/repository/**</exclude>
-						<exclude>**/service/**</exclude>
 						<exclude>**/session/**</exclude>
 						<exclude>**/tools/**</exclude>
 					</excludes>
@@ -137,6 +137,9 @@
 							<goal>check</goal>
 						</goals>
 						<configuration>
+							<excludes>
+
+							</excludes>
 							<rules>
 								<rule>
 									<element>BUNDLE</element>
@@ -154,7 +157,7 @@
 										<limit>
 											<counter>BRANCH</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.1</minimum>
+											<minimum>0.01</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -162,10 +165,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

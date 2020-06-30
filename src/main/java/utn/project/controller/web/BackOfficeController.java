@@ -105,7 +105,7 @@ public class BackOfficeController {
         return ResponseEntity.ok().build();
     }
 
-    /**Consulta Phone*/
+    /**Consulta Phone and status de lineas*/
 
     @GetMapping("/phone/{number}")
     public ResponseEntity<PhoneLines> getPhone(@RequestHeader("Authorization") String sessionToken,
@@ -125,6 +125,8 @@ public class BackOfficeController {
         sessionManager.sessionRemove(sessionToken);
         return this.phoneController.add(phoneLine);
     }
+
+    /**Status de lineas a traves de numero*/
 
     @PutMapping("/phone/{number}/status={status}")
     public ResponseEntity<ResponseEntity<PhoneLines>> statusPhoneLine (@RequestHeader("Authorization") String sessionToken,
@@ -165,6 +167,7 @@ public class BackOfficeController {
         sessionManager.getCurrentUser(sessionToken);
         return this.callController.getCallsUser(id);
     }
+    /**Consulta llamadas entre fechas*/
 
     @GetMapping( "/calls/between-dates/{firstDate}/{secondDate}")
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
@@ -192,6 +195,8 @@ public class BackOfficeController {
         sessionManager.getCurrentUser(sessionToken);
         return this.billController.getBillsByIdUser(idUser);
     }
+
+    /**Consulta Facturas entre fechas*/
 
     @GetMapping("/bills/user/{idUser}/between-dates/{firstDate}/{secondDate}")
     public ResponseEntity<List<Bill>> getBillsBetweenDatesByUser(@RequestHeader("Authorization") String sessionToken,

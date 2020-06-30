@@ -41,6 +41,8 @@ public class CustomerController {
         return Optional.ofNullable(sessionManager.getCurrentUser(sessionToken)).orElseThrow(() -> new UserException("User not logged"));
     }
 
+    /**Consulta de clientes*/
+
     @GetMapping("/user")
     public ResponseEntity<User> getInfo(@RequestHeader("Authorization") String sessionToken) throws UserException {
         User currentUser = sessionManager.getCurrentUser(sessionToken);
@@ -65,6 +67,8 @@ public class CustomerController {
         User currentUser = getCurrentUser(sessionToken);
         return callController.getCityToByCallIdUser(currentUser.getId());
     }
+
+    /**Consulta de llamadas de cleintes entre fechas*/
 
     @GetMapping( "/calls/between-dates/{firstDate}/{secondDate}")
     public ResponseEntity<List<Call>> getCallsBtwDates(@RequestHeader("Authorization") String sessionToken,
