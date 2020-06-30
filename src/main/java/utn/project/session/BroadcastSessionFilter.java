@@ -22,7 +22,7 @@ public class BroadcastSessionFilter extends OncePerRequestFilter {
                                     HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String sessionToken = request.getHeader("Authorization");
-        if (sessionToken.equals("123") && request.getRequestURI().equals("/broadcast/") ){
+        if (sessionToken.equals("ABC123") && request.getRequestURI().equals("/broadcast/") ){
             filterChain.doFilter(request, response);
         }
         else {

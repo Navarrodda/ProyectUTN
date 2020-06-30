@@ -11,6 +11,8 @@ import utn.project.session.SessionManager;
 
 import java.text.ParseException;
 
+/**Usuario especial*/
+
 @RestController
 @RequestMapping("/broadcast")
 public class BroadcastController {

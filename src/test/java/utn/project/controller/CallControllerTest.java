@@ -87,6 +87,19 @@ public class CallControllerTest {
     }
 
     @Test
+    public void getCallsBtwDatesNullTest() throws UserException {
+        String firstDate = "first";
+        String secondDate = "second";
+        Call call = createCall();
+        List<Call> list = new ArrayList<>();
+        list.add(call);
+        when(this.callServiceMock.getCallsBetweenDates(null,null)).thenReturn(ResponseEntity.ok(list));
+        ResponseEntity<List<Call>> response = this.callController.getCallsBetweenDates(firstDate,secondDate);
+        Assert.assertEquals(null,response);
+
+    }
+
+    @Test
     public void addCallTest() throws ValidationException {
         BroadcastCall calls = new BroadcastCall();
         Call call = createCall();
@@ -94,5 +107,19 @@ public class CallControllerTest {
         ResponseEntity<Call> response = this.callController.addCall(calls);
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
     }
+
+    @Test
+    public void addCallNullTest() throws ValidationException {
+        BroadcastCall calls = new BroadcastCall();
+        Call call = createCall();
+        when(this.callServiceMock.addCall(null)).thenReturn(ResponseEntity.ok(call));
+        ResponseEntity<Call> response = this.callController.addCall(calls);
+        Assert.assertEquals(null, response);
+    }
+
+
+
+
+
 
 }

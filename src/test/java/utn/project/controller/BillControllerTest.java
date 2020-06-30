@@ -38,8 +38,19 @@ public class BillControllerTest {
         Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
+
     @Test
-    public void getBillsBtwDatesByIdUserTest() throws UserException {
+    public void getBillsByIdUserNullTest() throws UserException {
+        Integer id = 1;
+        List<Bill> list = new ArrayList<>();
+        list.add(new Bill());
+        when(this.billServiceMock.getBillsByIdUser(null)).thenReturn(ResponseEntity.ok(list));
+        ResponseEntity<List<Bill>> response = this.billController.getBillsByIdUser(null);
+        Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
+
+    @Test
+    public void getBillsBetweenDatesByIdUserTest() throws UserException {
         Integer idUser = 1;
         String firstDate = "first";
         String secondDate = "second";
@@ -51,7 +62,19 @@ public class BillControllerTest {
     }
 
     @Test
-    public void getBillsBtwDatesTest(){
+    public void getBillsBetweenDatesByIdUserNullTest() throws UserException {
+        Integer idUser = 1;
+        String firstDate = "first";
+        String secondDate = "second";
+        List<Bill> list = new ArrayList<>();
+        list.add(new Bill());
+        when(this.billServiceMock.getBillsBetweenDatesByIdUser(firstDate,secondDate,null)).thenReturn(ResponseEntity.ok(list));
+        ResponseEntity<List<Bill>> response = this.billController.getBillsBetweenDatesByIdUser(firstDate,secondDate,null);
+        Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
+
+    @Test
+    public void getBillsBetweenDatesTest(){
         String firstDate = "first";
         String secondDate = "second";
         List<Bill> list = new ArrayList<>();
@@ -60,4 +83,5 @@ public class BillControllerTest {
         ResponseEntity<List<Bill>> response = this.billController.getBillsBetweenDates(firstDate,secondDate);
         Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
+
 }

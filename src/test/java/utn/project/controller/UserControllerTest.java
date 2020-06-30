@@ -9,15 +9,19 @@ import org.mockito.Mock;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import utn.project.domain.City;
 import utn.project.domain.User;
 import utn.project.domain.enums.UserType;
 import utn.project.dto.LoginRequestDto;
 import utn.project.dto.NewUserDto;
 import utn.project.dto.UpdateUserDto;
+import utn.project.dto.UserDto;
 import utn.project.exceptions.*;
 import utn.project.service.UserService;
 import utn.project.session.SessionManager;
+
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +74,6 @@ public class UserControllerTest {
                 .id(1)
                 .build();
     }
-
 
     private UpdateUserDto createDto(String name,String surname, String userType){
         City city = new City();
@@ -192,6 +195,23 @@ public class UserControllerTest {
         when(this.userServiceMockito.add(user)).thenReturn(newUser);
     }
 
+    @Test
+    public void  getUserSuspendedTest() throws  ValidationException, NullPointerException{
+        ResponseEntity<List<User>> list = null;
+        when(this.userServiceMockito.getUserSuspended()).thenReturn(list);
+        ResponseEntity<List<User>> response = this.userController.getUserSuspended();
+        Assert.assertEquals(null,response);
+    }
 
 
+    @Test
+    public void getAdminUpdateAccountTest() throws ValidationException {
+        List<User> list = new ArrayList<>();
+        LoginRequestDto dto = new  LoginRequestDto("lau","123");
+        User user = createUser();
+        list.add(user);
+        when(this.userServiceMockito.AdminUpdateAccount(1,dto)).thenReturn(user);
+        User  response = this.userServiceMockito.AdminUpdateAccount(1,dto);
+        Assert.assertEquals(user,response);
+    }
 }

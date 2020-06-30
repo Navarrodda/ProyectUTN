@@ -27,6 +27,8 @@ public class LoginController {
         this.sessionManager = sessionManager;
     }
 
+    /**Login y Logout a través de "Authorization"*/
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto) throws ValidationException, UserException, InvalidLoginException {
         ResponseEntity response;
