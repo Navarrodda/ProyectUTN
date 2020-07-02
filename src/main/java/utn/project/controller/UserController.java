@@ -58,7 +58,7 @@ public class UserController {
     }
 
     public ResponseEntity<User> add(NewUserDto user) throws ValidationException {
-        return ResponseEntity.created(getLocation(this.userService.add(user))).build();
+        return ResponseEntity.created(getURI(this.userService.add(user))).build();
     }
 
     public ResponseEntity<User> update(Integer id, UpdateUserDto user,Integer currentId) throws ValidationException{
@@ -73,7 +73,7 @@ public class UserController {
         this.userService.deleteUser(id, currentId);
     }
 
-    private URI getLocation(User user) {
+    private URI getURI(User user) {
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}/")

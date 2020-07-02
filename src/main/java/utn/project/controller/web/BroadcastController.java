@@ -13,6 +13,8 @@ import java.text.ParseException;
 
 /**Usuario especial*/
 
+/**Transmitir*/
+
 @RestController
 @RequestMapping("/broadcast")
 public class BroadcastController {

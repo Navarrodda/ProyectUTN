@@ -108,10 +108,10 @@ public class BackOfficeController {
     /**Consulta Phone and status de lineas*/
 
     @GetMapping("/phone/{number}")
-    public ResponseEntity<PhoneLines> getPhone(@RequestHeader("Authorization") String sessionToken,
+    public ResponseEntity<PhoneLines> getPhoneNumber(@RequestHeader("Authorization") String sessionToken,
                                                    @PathVariable(value = "number", required = true) String number) throws UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
-        return this.phoneController.getPhoneLineByNumber(number);
+        return this.phoneController.getByPhoneNumber(number);
     }
 
     @GetMapping("/phone")
@@ -129,18 +129,18 @@ public class BackOfficeController {
     /**Status de lineas a traves de numero*/
 
     @PutMapping("/phone/{number}/status={status}")
-    public ResponseEntity<ResponseEntity<PhoneLines>> statusPhoneLine (@RequestHeader("Authorization") String sessionToken,
+    public ResponseEntity<ResponseEntity<PhoneLines>> statusPhoneNumberStatus (@RequestHeader("Authorization") String sessionToken,
                                                                         @PathVariable(value = "number", required = true) String number,
                                                                         @PathVariable(value = "status", required = true) String status) throws ValidationException, UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
         return this.phoneController.changeStatus(number, status);
     }
 
-    @DeleteMapping("/phone/{idPhone}")
-    public ResponseEntity deletePhoneLine (@RequestHeader("Authorization") String sessionToken,
-                                           @PathVariable(value = "idPhone", required = true) Integer idPhone) throws ValidationException, UserException, PhoneNotExistsException, LostException {
+    @DeleteMapping("/phone/{id}")
+    public ResponseEntity deletePhoneLineId (@RequestHeader("Authorization") String sessionToken,
+                                           @PathVariable(value = "id", required = true) Integer id) throws ValidationException, UserException, PhoneNotExistsException, LostException {
         sessionManager.getCurrentUser(sessionToken);
-        return this.phoneController.delete(idPhone);
+        return this.phoneController.delete(id);
     }
 
     /**Consulta Tariff*/
@@ -189,22 +189,22 @@ public class BackOfficeController {
 
     /**Consulta Facturas*/
 
-    @GetMapping("/bills/user/{idUser}")
+    @GetMapping("/bills/user/{id}")
     public ResponseEntity<List<Bill>> getBillsByUser(@RequestHeader("Authorization") String sessionToken,
-                                                     @PathVariable(value = "idUser", required = true) Integer idUser) throws UserException {
+                                                     @PathVariable(value = "id", required = true) Integer id) throws UserException {
         sessionManager.getCurrentUser(sessionToken);
-        return this.billController.getBillsByIdUser(idUser);
+        return this.billController.getBillsByIdUser(id);
     }
 
     /**Consulta Facturas entre fechas*/
 
-    @GetMapping("/bills/user/{idUser}/between-dates/{firstDate}/{secondDate}")
+    @GetMapping("/bills/user/{id}/between-dates/{firstDate}/{secondDate}")
     public ResponseEntity<List<Bill>> getBillsBetweenDatesByUser(@RequestHeader("Authorization") String sessionToken,
                                                              @PathVariable(value = "firstDate", required = true) String firstDate,
                                                              @PathVariable(value = "secondDate", required = true) String secondDate,
-                                                             @PathVariable(value = "idUser", required = true) Integer idUser) throws UserException {
+                                                             @PathVariable(value = "id", required = true) Integer id) throws UserException {
         sessionManager.getCurrentUser(sessionToken);
-        return this.billController.getBillsBetweenDatesByIdUser(firstDate, secondDate, idUser);
+        return this.billController.getBillsBetweenDatesByIdUser(firstDate, secondDate, id);
     }
 
     @GetMapping("/bills/between-dates/{firstDate}/{secondDate}")

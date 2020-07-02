@@ -27,7 +27,7 @@ public class PhoneController {
         this.phoneService = phoneService;
     }
 
-    public ResponseEntity<PhoneLines> getPhoneLineByNumber(String number) throws PhoneNotExistsException, LostException {
+    public ResponseEntity<PhoneLines> getByPhoneNumber(String number) throws PhoneNotExistsException, LostException {
         return ResponseEntity.ok(this.phoneService.getByPhoneNumber(number));
     }
 

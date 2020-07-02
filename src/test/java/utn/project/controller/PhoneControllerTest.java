@@ -121,7 +121,7 @@ public class PhoneControllerTest {
         String number = "123355552";
         PhoneLines phoneLine = createPhoneLine();
         when(this.phoneServiceMock.getByPhoneNumber(number)).thenReturn(phoneLine);
-        ResponseEntity<PhoneLines> response = this.phoneController.getPhoneLineByNumber(number);
+        ResponseEntity<PhoneLines> response = this.phoneController.getByPhoneNumber(number);
         Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
