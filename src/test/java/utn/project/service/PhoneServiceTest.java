@@ -11,6 +11,7 @@ import utn.project.domain.User;
 import utn.project.domain.enums.LineStatus;
 import utn.project.exceptions.LostException;
 import utn.project.exceptions.PhoneNotExistsException;
+import utn.project.projections.PhonesUsers;
 import utn.project.repository.CityRepository;
 import utn.project.repository.PhoneRepository;
 import utn.project.repository.TypeRepository;
@@ -82,6 +83,17 @@ public class PhoneServiceTest {
     @Test()
     public void getByPhoneNumberFails2() throws PhoneNotExistsException, LostException {
         this.phoneService.getByPhoneNumber("222-2222222222");
+    }
+
+    @Test()
+    public void getPhoneTest(){
+        this.phoneService.getPhone();
+    }
+
+    @Test()
+    public void phoneByIdTest() throws PhoneNotExistsException, LostException {
+        Integer id = 1;
+        this.phoneService.phoneById(id);
     }
 
 }

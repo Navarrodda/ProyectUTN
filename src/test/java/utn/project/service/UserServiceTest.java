@@ -13,6 +13,8 @@ import utn.project.dto.NewUserDto;
 import utn.project.dto.UpdateUserDto;
 import utn.project.exceptions.UserException;
 import utn.project.exceptions.ValidationException;
+import utn.project.projections.UserFilter;
+import utn.project.projections.UserPhoneTypeLin;
 import utn.project.repository.CityRepository;
 import utn.project.repository.PhoneRepository;
 import utn.project.repository.UserRepository;
@@ -236,5 +238,42 @@ public class UserServiceTest {
         when(this.userRepository.save(user)).thenReturn(user);
         User test = this.userService.update(id,dto);
         Assert.assertEquals(user,test);
+    }
+
+    @Test
+    public void getUsers() {
+        List<UserFilter> user = this.userService.getUser();
+    }
+
+    @Test
+    public void getUsersDisabledTest(){
+        ResponseEntity<List<User>> list = this.userService.getUsersDisabled();
+    }
+
+    @Test
+    public void getUserSuspendedTest(){
+        ResponseEntity<List<User>> list = this.userService.getUserSuspended();
+    }
+
+    @Test
+    public void getUserPhoneTest(){
+        List<UserPhoneTypeLin> list = this.userService.getUserPhone();
+    }
+
+    @Test
+    public void getUserCityTest(){
+        Integer id = 1;
+        User user = this.userService.getUserCity(id);
+    }
+
+    @Test
+    public void getUsersLineActiveTest() {
+        User u = createUser();
+        List<User> user = new ArrayList<>();
+        user.add(u);
+        when(userRepository.getUsersLineActive()).thenReturn(user);
+        ResponseEntity<List<User>> expect=  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        ResponseEntity<List<User>> re= userService.getUsersLineActive(1);
+        Assert.assertEquals(expect,re);
     }
 }

@@ -180,4 +180,16 @@ public class CallServiceTest {
         when(this.callRepositoryMock.save(call)).thenReturn(call);
     }
 
+
+    @Test
+    public void addTest() {
+        Call call = createCall();
+        this.callRepositoryMock.save(call);
+    }
+
+    @Test
+    public void getCallTest() {
+        List<Call> calls = this.callService.getCall();
+    }
+
 }
