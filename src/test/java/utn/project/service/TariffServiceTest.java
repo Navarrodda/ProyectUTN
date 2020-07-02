@@ -74,5 +74,22 @@ public class TariffServiceTest {
         this.tariffService.getTariffByDestinyOriginFromTo(idLocalityFrom,idLocalityTo);
     }
 
+    @Test
+    public void addTariffTest() {
+        Tariff tariff = createTariff();
+        this.tariffService.add(tariff);
+    }
+
+    @Test
+    public void getTariffTest() {
+        List<Tariff> tariff =  this.tariffService.getTariff();
+    }
+
+    @Test
+    public void getTariffForPhonesDesAndOrigTest() {
+        Integer idOrigin = 1;
+        Integer idDestiny = 2;
+        Tariff tariff = this.tariffService.getTariffForPhonesDesAndOrig(idOrigin,idDestiny);
+    }
 
 }

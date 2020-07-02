@@ -58,4 +58,15 @@ public class TariffControllerTest {
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
+    @Test
+    public void getTariffForPhonesDesAndOrig() {
+        Integer origin = 1;
+        Integer destiny = 2;
+        Tariff response = this.tariffController.getTariffForPhonesDesAndOrig(origin,destiny);
+    }
+
+
+
+
+
 }

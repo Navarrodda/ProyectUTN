@@ -214,4 +214,12 @@ public class UserControllerTest {
         User  response = this.userServiceMockito.AdminUpdateAccount(1,dto);
         Assert.assertEquals(user,response);
     }
+
+
+    @Test
+    public void deleteUserTest() throws UserException {
+        Integer id = 1;
+        Integer userId = 2;
+        this.userController.deleteUser(id,userId);
+    }
 }
